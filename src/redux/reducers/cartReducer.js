@@ -27,6 +27,12 @@ export const cartReducer = (state = initialState, action) => {
           ? { ...item, quantity: item.quantity - 1 }
           : item
       );
+    // case EDIT_QUANTITY:
+    //   return state.map((item) =>
+    //     item.item.title === action.payload.title
+    //       ? { ...item, quantity: action.quantity }
+    //       : item
+    //   );
     case REMOVE_ITEM:
       return state.filter((item) => item.item.title !== action.payload);
     default:

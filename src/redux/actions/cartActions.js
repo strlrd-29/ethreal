@@ -22,6 +22,15 @@ export const decreaseQuantity = (item) => (dispatch) => {
     dispatch({ type: DECREASE_QUANTITY, payload: item });
   }
 };
+// export const editQuantity = (item, quantity) => (dispatch) => {
+//   if (parseInt(quantity)) {
+//     dispatch({
+//       type: EDIT_QUANTITY,
+//       payload: item,
+//       quantity: parseInt(quantity),  experimental
+//     });
+//   }
+// };
 export const removeItem = (title) => (dispatch) => {
   dispatch({ type: REMOVE_ITEM, payload: title });
 };

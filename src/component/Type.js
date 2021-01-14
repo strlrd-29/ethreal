@@ -78,22 +78,10 @@ class Type extends Component {
       return ourItems;
     });
 
-    //    console.log("all itemsss here")
-
-    //    console.log(ourItems)
-
-    //
-
     let allItems = ourItems[0] ? (
       ourItems?.map((post) => {
         return (
-          <Grid
-            key={post.pubId}
-            item
-            xs={6}
-            md={4}
-            style={{ border: "1px green solid" }}
-          >
+          <Grid key={post.pubId} item xs={6} md={4}>
             <ItemCard key={post.pubId} post={post} />
           </Grid>
         );
@@ -111,7 +99,7 @@ class Type extends Component {
 
     return (
       <Grid container>
-        <Grid container justify="center" xs={12} style={{ height: 350 }}>
+        <Grid container justify="center" xs={12} style={{ height: 400 }}>
           <TypeIntro
             store={ourType.store}
             title={ourType.title}
@@ -132,11 +120,7 @@ class Type extends Component {
                 <Grid container xs={12}>
                   <FilterSmall />
 
-                  <Grid
-                    container
-                    xs={12}
-                    style={{ padding: 10, border: "1px red solid" }}
-                  >
+                  <Grid container xs={12} style={{ padding: 0 }}>
                     {allItems}
                   </Grid>
                 </Grid>
@@ -147,11 +131,7 @@ class Type extends Component {
                     <FilterLarge />
                   </Grid>
 
-                  <Grid
-                    container
-                    xs={9}
-                    style={{ padding: 10, border: "1px red solid" }}
-                  >
+                  <Grid container xs={9} style={{ padding: 10 }}>
                     {allItems}
                   </Grid>
                 </Grid>

@@ -1,33 +1,18 @@
 import React, { Component, Fragment } from "react";
-import Media from "react-media";
-
-import { getWebsiteData } from "../redux/actions/userActions";
 
 import PanelItem from "../component/PanelItem";
 
-import axios from "axios";
-import withStyles, { withStyle } from "@material-ui/core/styles/withStyles";
-import PropTypes from "prop-types";
+import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 //image
 
-import theme from "../util/theme";
 // ui
 import Divider from "@material-ui/core/Divider";
 
-import CardMedia from "@material-ui/core/CardMedia";
-import Card from "@material-ui/core/Card";
-
 import Grid from "@material-ui/core/Grid";
-import Select from "@material-ui/core/Select";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import { Button, CardContent } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import { AnimatePresence } from "framer-motion";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -42,11 +27,15 @@ class panel extends Component {
   }
   render() {
     const { classes, cart } = this.props;
-    // console.log(cart);
-    const variant = {
-      visible: { opacity: 1 },
-      hidden: { opacity: 0 },
-    };
+
+    let total = 0;
+    cart.map((item) => {
+      total += item.item.promotion
+        ? item.quantity *
+          (item.item.price -
+            (item.item.price * item.item.pourcentagePromotion) / 100)
+        : item.quantity * item.item.price;
+    });
     let allItems =
       cart.length != 0 ? (
         cart.map((post) => {
@@ -66,13 +55,117 @@ class panel extends Component {
 
     return (
       <Grid container justify="center">
-        <Grid container xs={12} justify="center">
-          <h1>YOUR CART</h1>
-        </Grid>
-
-        <Grid container justify="center">
+        <Grid container justify="center" style={{ paddingTop: 30 }}>
           <Grid container md={8} style={{ padding: 10 }}>
+            <Grid
+              container
+              xs={12}
+              justify="center"
+              style={{ marginBottom: 30 }}
+            >
+              <Typography variant="h4">Order List</Typography>
+            </Grid>
             {allItems}
+          </Grid>
+          <Grid container alignItems="flex-start" md={3}>
+            <Grid
+              container
+              xs={12}
+              direction="column"
+              justify="flex-start"
+              style={{ padding: 20, backgroundColor: "#f5f3f4" }}
+            >
+              <Grid
+                container
+                xs={12}
+                justify="center"
+                style={{ marginBottom: 30 }}
+              >
+                <Typography variant="h4">Order summary</Typography>
+              </Grid>
+
+              <Divider />
+
+              <Grid
+                container
+                xs={12}
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+                style={{ marginBottom: 20, marginTop: 20 }}
+              >
+                <Typography variant="h6">Order total :</Typography>
+                <Typography variant="h6">{total} DZD</Typography>
+              </Grid>
+
+              <Grid
+                container
+                xs={12}
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+                style={{ marginBottom: 40 }}
+              >
+                <Typography variant="h6">Shipping :</Typography>
+                <Typography variant="h6">{total} DZD</Typography>
+              </Grid>
+              <Grid
+                container
+                xs={12}
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+                style={{ marginBottom: 40 }}
+              >
+                <form
+                  className={classes.root}
+                  noValidate
+                  autoComplete="off"
+                  style={{ width: "100%" }}
+                >
+                  <TextField
+                    style={{ width: "100%" }}
+                    id="outlined-basic"
+                    label="Code promo"
+                    variant="outlined"
+                  />
+                </form>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ width: "40%", borderRadius: 0, fontSize: "1.2em" }}
+                >
+                  Apply
+                </Button>
+              </Grid>
+              <Divider />
+              <Grid
+                container
+                xs={12}
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+                style={{ marginTop: 20, marginBottom: 30 }}
+              >
+                <Typography variant="h6">Total price :</Typography>
+                <Typography variant="h6">{total} DZD</Typography>
+              </Grid>
+              <Grid
+                container
+                xs={12}
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ width: "100%", borderRadius: 0, fontSize: "1.2em" }}
+                >
+                  CHECKOUT
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

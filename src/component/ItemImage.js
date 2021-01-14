@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   typeName: {
     float: "left",
     position: "absolute",
-    top: 0,
+    top: 100,
     left: 0,
     padding: 20,
     zIndex: 4,
@@ -69,7 +69,6 @@ function ItemImage(props) {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  //const maxSteps = tutorialSteps.length;
   const maxSteps = props.item.itemImagesUrl.length;
 
   const handleNext = () => {
@@ -83,8 +82,6 @@ function ItemImage(props) {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
-  // console.log("item store");
-  // console.log(props.item.store);
 
   return (
     <div className={classes.root}>

@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useState } from "react";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
@@ -32,13 +32,22 @@ const styles = (theme) => ({
 });
 
 const Panel = ({ classes, itemData }) => {
+  const newPrice = itemData.item.promotion
+    ? itemData.item.price -
+      (itemData.item.price * itemData.item.pourcentagePromotion) / 100
+    : null;
+  const [quantity, setQuantity] = useState(itemData.quantity);
   const dispatch = useDispatch();
 
   const handleQuantityPlus = (item) => {
     dispatch(addToCart(item));
+    setQuantity(quantity + 1);
   };
   const handleQuantityMinus = (item) => {
     dispatch(decreaseQuantity(item));
+    if (quantity !== 1) {
+      setQuantity(quantity - 1);
+    }
   };
   const handleRemove = (title) => {
     dispatch(removeItem(title));
@@ -80,7 +89,9 @@ const Panel = ({ classes, itemData }) => {
           alignItems="center"
           justify="space-between"
         >
-          <Typography>{itemData.item.price} DZD</Typography>
+          <Typography>
+            {newPrice ? newPrice : itemData.item.price} DZD
+          </Typography>
 
           <div style={{ display: "flex", alignItems: "center" }}>
             <Button
@@ -89,14 +100,20 @@ const Panel = ({ classes, itemData }) => {
             >
               <RemoveOutlinedIcon fontSize="medium" color="primary" />
             </Button>
-            <form noValidate autoComplete="off">
+            <form
+              noValidate
+              autoComplete="off"
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
               <TextField
                 id="outlined-basic"
-                // type="number"
+                disabled
                 size="small"
                 variant="outlined"
                 style={{ width: 60 }}
-                value={itemData.quantity}
+                value={quantity}
                 labelwidth={5}
                 inputProps={{
                   min: 0,
@@ -115,7 +132,12 @@ const Panel = ({ classes, itemData }) => {
             </Button>
           </div>
 
-          <Typography>{itemData.item.price * itemData.quantity} DZD</Typography>
+          <Typography>
+            {newPrice
+              ? newPrice * itemData.quantity
+              : itemData.item.price * itemData.quantity}{" "}
+            DZD
+          </Typography>
 
           <IconButton onClick={() => handleRemove(itemData.item.title)}>
             <CloseIcon fontSize="medium" />

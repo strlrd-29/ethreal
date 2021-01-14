@@ -10,6 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,13 +57,11 @@ export default function MenuListComposition(props) {
   }, [open]);
 
   let ourTypes = [];
-  // console.log(props.types);
 
-  props.types.map((postType) => {
-    if (postType.store === props.store.title) {
-      return ourTypes.push(postType);
+  Object.keys(props.types).map((postType) => {
+    if (props.types[postType].store == props.store.title) {
+      return ourTypes.push(props.types[postType]);
     }
-    return ourTypes;
   });
 
   let alltypes = ourTypes ? (
@@ -92,11 +91,19 @@ export default function MenuListComposition(props) {
           aria-controls={open ? "menu-list-grow" : undefined}
           aria-haspopup="true"
           variant={open ? "outlined" : ""}
-          color="primary"
+          // color="primary"
           style={
             open
-              ? { backgroundColor: "transparent", textTransform: "none" }
-              : { backgroundColor: "transparent", textTransform: "none" }
+              ? {
+                  backgroundColor: "transparent",
+                  textTransform: "none",
+                  fontSize: "1.3em",
+                }
+              : {
+                  backgroundColor: "transparent",
+                  textTransform: "none",
+                  fontSize: "1.3em",
+                }
           }
           // onClick={handleToggle}
         >
@@ -109,7 +116,7 @@ export default function MenuListComposition(props) {
           role={undefined}
           transition
           disablePortal
-          style={{ marginTop: 20 }}
+          style={{ marginTop: 10, zIndex: 3 }}
         >
           {({ TransitionProps, placement }) => (
             <Grow

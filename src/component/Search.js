@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import SearchIcon from "@material-ui/icons/Search";
@@ -6,6 +6,14 @@ import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
+
+import { Link } from "react-router-dom";
+
+//redux useSelector
+import { useSelector } from "react-redux";
+
+//fuse js
+import Fuse from "fuse.js";
 
 const useStyles = makeStyles({
   list: {
@@ -16,7 +24,8 @@ const useStyles = makeStyles({
   },
   root: {
     display: "flex",
-    justifyContent: "center",
+    flexDirection: "column",
+    // justifyContent:"center",
     alignItems: "center",
     width: "100%",
     height: 200,
@@ -25,8 +34,11 @@ const useStyles = makeStyles({
     fontSize: "2em",
   },
   IconButtonDrawer: {
-    position: "absolute",
-    left: "5%",
+    //  position:"absolute",
+    marginTop: 20,
+    marginBottom: 20,
+
+    // top:20,
     color: "black",
   },
 });
@@ -49,6 +61,31 @@ export default function TemporaryDrawer() {
 
   function InputWithIcon() {
     const classes = useStyles();
+    const [query, setQuery] = useState("");
+    const { items } = useSelector((state) => state);
+    const options = {
+      includeScore: true,
+      keys: [
+        {
+          name: "title",
+          weight: 0.7,
+        },
+        {
+          name: "description",
+          weight: 0.3,
+        },
+        {
+          name: "type",
+          weight: 0.2,
+        },
+        {
+          name: "store",
+          weight: 0.2,
+        },
+      ],
+    };
+    const fuse = new Fuse(items, options);
+    const results = fuse.search(query);
 
     return (
       <div className={classes.root}>
@@ -59,11 +96,7 @@ export default function TemporaryDrawer() {
           <CloseIcon fontSize="large" />
         </IconButton>
 
-        <form
-          style={{ width: "60%", position: "absolute" }}
-          noValidate
-          autoComplete="off"
-        >
+        <form style={{ width: "80%" }} noValidate autoComplete="off">
           <TextField
             style={{ width: "100%" }}
             placeholder="Search"
@@ -103,8 +136,7 @@ export default function TemporaryDrawer() {
             }}
           >
             <SearchIcon
-              fontSize="medium"
-              style={{ transform: "rotate(90deg)" }}
+              style={{ transform: "rotate(90deg)", fontSize: "1.2em" }}
             />
           </IconButton>
           <Drawer

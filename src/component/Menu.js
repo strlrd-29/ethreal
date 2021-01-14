@@ -39,11 +39,10 @@ export default function Menu(props) {
   };
 
   let allStores = props.storesData ? (
-    props.storesData.map((post) => {
+    Object.keys(props.storesData).map((post) => {
       return (
         <MenuList
-          key={post.storeId}
-          store={post}
+          store={props.storesData[post]}
           types={props.types}
           handleChange={handleChange}
         />

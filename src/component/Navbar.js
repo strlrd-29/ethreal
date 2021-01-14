@@ -10,20 +10,16 @@ import Search from "./Search";
 import Menu from "./Menu";
 
 //MUI stuff
-
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
+import Badge from "@material-ui/core/Badge";
 
 //icons mui
-import MenuIcon from "@material-ui/icons/Menu";
-import AccountBoxOutlinedIcon from "@material-ui/icons/AccountBoxOutlined";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ShoppingBasketOutlinedIcon from "@material-ui/icons/ShoppingBasketOutlined";
 
 import IconButton from "@material-ui/core/IconButton";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 
 const styles = (theme) => ({
@@ -90,11 +86,12 @@ class Navbar extends Component {
   };
 
   render() {
-    const { classes, stores, types, authonticated } = this.props;
-    // console.log(authonticated);
+    const { classes, stores, types, authenticated, cart } = this.props;
+    let badge = cart.reduce((acc, obj) => acc + obj.quantity, 0);
+
     let allStores = stores ? (
-      stores?.map((post) => {
-        return <NavButton store={post} types={types} />;
+      Object.keys(stores).map((post) => {
+        return <NavButton store={stores[post]} types={types} />;
       })
     ) : (
       <Grid item xs={12} align="center">
@@ -102,214 +99,161 @@ class Navbar extends Component {
       </Grid>
     );
 
-    let signed = authonticated;
+    let signed = authenticated;
     return (
       <div>
-        {signed ? (
-          <Media
-            queries={{
-              small: "(max-width: 799px)",
-              large: "(min-width: 799px)",
-            }}
-          >
-            {(matches) => (
-              <Fragment>
-                {matches.small && (
-                  <Toolbar className="nav-container">
-                    <Button
-                      className={classes.logo}
-                      color="primary"
-                      variant="contained"
-                      component={Link}
-                      to="/"
-                    >
-                      ISHAK TOBBI
-                    </Button>
-
-                    <div className={classes.spacer}></div>
-
-                    <IconButton
-                      style={{ color: "#2b2d42" }}
-                      component={Link}
-                      to="/profile"
-                    >
-                      <AccountBoxOutlinedIcon fontSize="large" />
-                    </IconButton>
-
-                    <React.Fragment key="right">
-                      <IconButton onClick={this.toggleDrawer("right", true)}>
-                        <MenuIcon
-                          fontSize="large"
-                          style={{ color: "#2b2d42" }}
-                        />
-                      </IconButton>
-                      <SwipeableDrawer
-                        anchor="right"
-                        open={this.state.right}
-                        onClose={this.toggleDrawer("right", false)}
-                        onOpen={this.toggleDrawer("right", true)}
-                      ></SwipeableDrawer>
-                    </React.Fragment>
-                  </Toolbar>
-                )}
-                {matches.large && (
-                  <Toolbar className="nav-container">
-                    <Button
-                      className={classes.logo}
-                      color="primary"
-                      component={Link}
-                      to="/"
-                      onClick={this.handleChangeHome}
-                    >
-                      ISHAK TOBBI
-                    </Button>
-                    <div className={classes.spacer}></div>
-
-                    <Divider orientation="vertical" flexItem />
-                  </Toolbar>
-                )}
-              </Fragment>
-            )}
-          </Media>
-        ) : (
-          <Media
-            queries={{
-              small: "(max-width: 799px)",
-              large: "(min-width: 799px)",
-            }}
-          >
-            {(matches) => (
-              <Fragment>
-                {matches.small && (
-                  <Toolbar className=".nav-container">
-                    <Grid container>
-                      <Grid container xs={12} direction="row">
-                        <Grid
-                          container
-                          xs
-                          justify="flex-start"
-                          alignItems="flex-start"
-                        >
-                          <Menu storesData={stores} types={types} />
-                        </Grid>
-                        <Grid container xs={4} justify="center">
-                          <Button
-                            className={classes.logo}
-                            color="primary"
-                            component={Link}
-                            to="/"
-                            onClick={this.handleChangeHome}
-                          >
-                            ETHE
-                          </Button>
-                        </Grid>
-
-                        <Grid
-                          container
-                          xs={5}
-                          justify="flex-end"
-                          alignItems="center"
-                        >
-                          <Search />
-
-                          <IconButton
-                            component={Link}
-                            to="/panel"
-                            style={{
-                              color: "black",
-                              backgroundColor: "transparent",
-                              textTransform: "none",
-                            }}
-                          >
-                            <ShoppingBasketOutlinedIcon fontSize="medium" />
-                          </IconButton>
-
-                          <IconButton
-                            component={Link}
-                            to="/login"
-                            style={{
-                              color: "black",
-                              backgroundColor: "transparent",
-                              textTransform: "none",
-                            }}
-                          >
-                            <PermIdentityIcon fontSize="medium" />
-                          </IconButton>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Toolbar>
-                )}
-                {matches.large && (
-                  <Toolbar className="nav-container">
-                    <Grid container>
+        <Media
+          queries={{
+            small: "(max-width: 1010px)",
+            large: "(min-width: 1010px)",
+          }}
+        >
+          {(matches) => (
+            <Fragment>
+              {matches.small && (
+                <Toolbar className=".nav-container">
+                  <Grid container>
+                    <Grid container xs={12} direction="row">
                       <Grid
                         container
-                        xs={12}
-                        direction="row"
-                        justify="space-between"
+                        xs
+                        justify="flex-start"
+                        alignItems="flex-start"
                       >
-                        <Grid
-                          container
-                          xs={3}
-                          justify="flex-start"
-                          alignItems="center"
+                        <Menu storesData={stores} types={types} />
+                      </Grid>
+                      <Grid container xs={4} justify="center">
+                        <Button
+                          className={classes.logo}
+                          color="primary"
+                          component={Link}
+                          to="/"
+                          onClick={this.handleChangeHome}
                         >
-                          <Button
-                            className={classes.logo}
+                          ETHE
+                        </Button>
+                      </Grid>
+
+                      <Grid
+                        container
+                        xs={5}
+                        justify="flex-end"
+                        alignItems="center"
+                      >
+                        <Search />
+
+                        <IconButton
+                          component={Link}
+                          to="/panel"
+                          style={{
+                            color: "black",
+                            backgroundColor: "transparent",
+                            textTransform: "none",
+                          }}
+                        >
+                          <Badge
                             color="primary"
-                            component={Link}
-                            to="/"
-                            onClick={this.handleChangeHome}
-                          >
-                            ETHEREAL
-                          </Button>
-                        </Grid>
-                        <Grid container xs={6} justify="center">
-                          {allStores}
-                        </Grid>
-
-                        <Grid
-                          container
-                          xs={3}
-                          justify="flex-end"
-                          alignItems="center"
-                        >
-                          <Search />
-
-                          <IconButton
-                            component={Link}
-                            to="/panel"
-                            style={{
-                              color: "black",
-                              backgroundColor: "transparent",
-                              textTransform: "none",
+                            badgeContent={badge}
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "right",
                             }}
                           >
                             <ShoppingBasketOutlinedIcon fontSize="medium" />
-                          </IconButton>
+                          </Badge>
+                        </IconButton>
 
-                          <IconButton
-                            component={Link}
-                            to="/login"
-                            style={{
-                              color: "black",
-                              backgroundColor: "transparent",
-                              textTransform: "none",
+                        <IconButton
+                          component={Link}
+                          to="/login"
+                          style={{
+                            color: "black",
+                            backgroundColor: "transparent",
+                            textTransform: "none",
+                          }}
+                        >
+                          <PermIdentityIcon fontSize="medium" />
+                        </IconButton>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Toolbar>
+              )}
+              {matches.large && (
+                <Toolbar className="nav-container">
+                  <Grid container>
+                    <Grid
+                      container
+                      xs={12}
+                      direction="row"
+                      justify="space-between"
+                    >
+                      <Grid
+                        container
+                        xs={2}
+                        justify="flex-start"
+                        alignItems="center"
+                      >
+                        <Button
+                          className={classes.logo}
+                          color="primary"
+                          component={Link}
+                          to="/"
+                          onClick={this.handleChangeHome}
+                        >
+                          ETHEREAL
+                        </Button>
+                      </Grid>
+                      <Grid container xs={8} justify="center">
+                        {allStores}
+                      </Grid>
+
+                      <Grid container xs justify="flex-end" alignItems="center">
+                        <Search />
+
+                        <IconButton
+                          component={Link}
+                          to="/panel"
+                          style={{
+                            color: "black",
+                            backgroundColor: "transparent",
+                            textTransform: "none",
+                          }}
+                        >
+                          <Badge
+                            color="primary"
+                            badgeContent={badge}
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "right",
                             }}
                           >
-                            <PermIdentityIcon fontSize="medium" />
-                          </IconButton>
-                        </Grid>
+                            <ShoppingBasketOutlinedIcon
+                              style={{ fontSize: "1.2em" }}
+                            />
+                          </Badge>
+                        </IconButton>
+
+                        <IconButton
+                          component={Link}
+                          to="/login"
+                          style={{
+                            color: "black",
+                            backgroundColor: "transparent",
+                            textTransform: "none",
+                          }}
+                        >
+                          <PermIdentityIcon style={{ fontSize: "1.2em" }} />
+                        </IconButton>
                       </Grid>
-                      <Grid container direction="row" justify="center"></Grid>
                     </Grid>
-                  </Toolbar>
-                )}
-              </Fragment>
-            )}
-          </Media>
-        )}
+                    <Grid container direction="row" justify="center"></Grid>
+                  </Grid>
+                </Toolbar>
+              )}
+            </Fragment>
+          )}
+        </Media>
       </div>
     );
   }
@@ -319,6 +263,7 @@ const mapStateToProps = (state) => ({
   stores: state.stores,
   types: state.types,
   user: state.user,
+  cart: state.cart,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Navbar));

@@ -33,11 +33,11 @@ export default function MenuList(props) {
   };
 
   let ourTypes = [];
-  // console.log(props.types)
+  // console.log
 
-  props.types.map((postType) => {
-    if (postType.store == props.store.title) {
-      return ourTypes.push(postType);
+  Object.keys(props.types).map((postType) => {
+    if (props.types[postType].store == props.store.title) {
+      return ourTypes.push(props.types[postType]);
     }
   });
 
@@ -45,7 +45,6 @@ export default function MenuList(props) {
     ourTypes.map((post) => {
       return (
         <ListItem
-          key={post.typeId}
           button
           className={classes.nested}
           style={{ padding: 10, textAlign: "center", verticalAlign: "middle" }}

@@ -4,6 +4,8 @@ import { getWebsiteData } from "../redux/actions/userActions";
 import ItemImage from "./ItemImage";
 
 import withStyles from "@material-ui/core/styles/withStyles";
+import Media from "react-media";
+
 import { connect } from "react-redux";
 
 // ui
@@ -81,17 +83,7 @@ class Item extends Component {
     window.scrollTo(0, 0);
   }
   render() {
-    let ourTitleNotYet = window.location.href
-      .split("http://localhost:3000/type/")
-      .join("")
-      .replace(/_/g, " ");
-
-    let ourTitle = ourTitleNotYet.split("/")[1];
-
-    // console.log("our title item page");
-
-    // console.log(ourTitle);
-
+    let ourTitle = window.location.href.split("/")[5].replace(/_/g, " ");
     const { classes, items } = this.props;
 
     let ourItem;
@@ -114,8 +106,8 @@ class Item extends Component {
           <Grid item md={6} xs={12}>
             <ItemImage item={ourItem} />
           </Grid>
-          <Grid container md={5} xs={12} style={{ padding: 20 }} spacing={3}>
-            <Grid item xs={12}>
+          <Grid container md={5} xs={12} style={{ padding: 10 }}>
+            <Grid item xs={12} style={{ marginBottom: 30 }}>
               <Typography variant="body2" color="textPrimary">
                 ref: {ourItem.ref}{" "}
               </Typography>
@@ -130,7 +122,7 @@ class Item extends Component {
                 readOnly
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginBottom: 30 }}>
               <Typography
                 style={{ marginBottom: 10 }}
                 variant="h6"
@@ -147,7 +139,7 @@ class Item extends Component {
               xs={12}
               direction="row"
               alignItems="flex-end"
-              style={{ padding: 10 }}
+              style={{ padding: 0, marginBottom: 20 }}
             >
               <Typography
                 style={{ fontWeight: "bold" }}
@@ -168,78 +160,186 @@ class Item extends Component {
                 {ourItem.price + " DZD"}
               </Typography>
             </Grid>
-            <Grid
-              container
-              xs={12}
-              direction="row"
-              alignItems="center"
-              style={{ padding: 10 }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginRight: 20,
-                }}
-              >
-                <Typography variant="h6" color="textPrimary">
-                  Size :{" "}
-                </Typography>
-                <FormControl variant="outlined" className={classes.formControl}>
-                  <Select
-                    labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
-                    value={this.state.size}
-                    onChange={this.handleChangeSize}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={40}>42</MenuItem>
-                    <MenuItem value={41}>43</MenuItem>
-                    <MenuItem value={42}>44</MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
 
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <Typography variant="h6" color="textPrimary">
-                  Q-ty :{" "}
-                </Typography>
-                <div style={{ display: "flex" }}>
-                  <Button
-                    color="primary"
-                    style={{ height: "100" }}
-                    onClick={this.handleQuantityMinus}
-                  >
-                    <RemoveOutlinedIcon fontSize="large" color="primary" />
-                  </Button>
-                  <form noValidate autoComplete="off">
-                    <TextField
-                      id="outlined-basic"
-                      type="number"
-                      variant="outlined"
-                      style={{ width: 70 }}
-                      value={this.state.quantity}
-                      labelwidth={10}
-                      inputProps={{ readOnly: true, min: 0 }}
-                    />
-                  </form>
-                  <Button
-                    style={{ height: "100" }}
-                    color="primary"
-                    onClick={this.handleQuantityPlus}
-                  >
-                    <AddOutlinedIcon color="primary" fontSize="large" />
-                  </Button>
-                </div>
-              </div>
-            </Grid>
-            <Grid item xs={12} style={{ height: 70 }}>
+            <Media
+              queries={{
+                small: "(max-width: 799px)",
+                large: "(min-width: 799px)",
+              }}
+            >
+              {(matches) => (
+                <Fragment>
+                  {matches.small && (
+                    <Grid
+                      container
+                      xs={12}
+                      direction="row"
+                      alignItems="center"
+                      style={{ marginBottom: 30 }}
+                    >
+                      <Grid
+                        container
+                        xs={10}
+                        justify="space-between"
+                        alignItems="center"
+                        style={{ marginRight: 20 }}
+                      >
+                        <Typography variant="h6" color="textPrimary">
+                          Size :{" "}
+                        </Typography>
+                        <FormControl
+                          variant="outlined"
+                          className={classes.formControl}
+                        >
+                          <Select
+                            labelId="demo-simple-select-filled-label"
+                            id="demo-simple-select-filled"
+                            value={this.state.size}
+                            onChange={this.handleChangeSize}
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={40}>42</MenuItem>
+                            <MenuItem value={41}>43</MenuItem>
+                            <MenuItem value={42}>44</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Grid>
+
+                      <Grid
+                        container
+                        xs={12}
+                        justify="space-between"
+                        alignItems="center"
+                        style={{ marginRight: 20 }}
+                      >
+                        <Typography variant="h6" color="textPrimary">
+                          Q-ty :{" "}
+                        </Typography>
+                        <div style={{ display: "flex" }}>
+                          <Button
+                            color="primary"
+                            style={{ height: "100" }}
+                            onClick={this.handleQuantityMinus}
+                          >
+                            <RemoveOutlinedIcon
+                              fontSize="large"
+                              color="primary"
+                            />
+                          </Button>
+                          <form noValidate autoComplete="off">
+                            <TextField
+                              id="outlined-basic"
+                              type="number"
+                              variant="outlined"
+                              style={{ width: 70 }}
+                              value={this.state.quantity}
+                              disabled
+                              labelwidth={10}
+                              inputProps={{ readOnly: true, min: 0 }}
+                            />
+                          </form>
+                          <Button
+                            style={{ height: "100" }}
+                            color="primary"
+                            onClick={this.handleQuantityPlus}
+                          >
+                            <AddOutlinedIcon color="primary" fontSize="large" />
+                          </Button>
+                        </div>
+                      </Grid>
+                    </Grid>
+                  )}
+                  {matches.large && (
+                    <Grid
+                      container
+                      xs={12}
+                      direction="row"
+                      alignItems="center"
+                      style={{ marginBottom: 30 }}
+                    >
+                      <Grid
+                        container
+                        xs={4}
+                        alignItems="center"
+                        style={{ marginRight: 20 }}
+                      >
+                        <Typography variant="h6" color="textPrimary">
+                          Size :{" "}
+                        </Typography>
+                        <FormControl
+                          variant="outlined"
+                          className={classes.formControl}
+                        >
+                          <Select
+                            labelId="demo-simple-select-filled-label"
+                            id="demo-simple-select-filled"
+                            value={this.state.size}
+                            onChange={this.handleChangeSize}
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={40}>42</MenuItem>
+                            <MenuItem value={41}>43</MenuItem>
+                            <MenuItem value={42}>44</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Grid>
+
+                      <Grid
+                        container
+                        xs
+                        alignItems="center"
+                        style={{ marginRight: 20 }}
+                      >
+                        <Typography variant="h6" color="textPrimary">
+                          Q-ty :{" "}
+                        </Typography>
+                        <div style={{ display: "flex" }}>
+                          <Button
+                            color="primary"
+                            style={{ height: "100" }}
+                            onClick={this.handleQuantityMinus}
+                          >
+                            <RemoveOutlinedIcon
+                              fontSize="large"
+                              color="primary"
+                            />
+                          </Button>
+                          <form noValidate autoComplete="off">
+                            <TextField
+                              id="outlined-basic"
+                              type="number"
+                              variant="outlined"
+                              style={{ width: 70 }}
+                              value={this.state.quantity}
+                              disabled
+                              labelwidth={10}
+                              inputProps={{ readOnly: true, min: 0 }}
+                            />
+                          </form>
+                          <Button
+                            style={{ height: "100" }}
+                            color="primary"
+                            onClick={this.handleQuantityPlus}
+                          >
+                            <AddOutlinedIcon color="primary" fontSize="large" />
+                          </Button>
+                        </div>
+                      </Grid>
+                    </Grid>
+                  )}
+                </Fragment>
+              )}
+            </Media>
+
+            <Grid item xs={12}>
               <Button
-                onClick={() => this.handleAdd(ourItem, this.state.quantity)}
                 color="primary"
                 variant="contained"
+                onClick={() => this.handleAdd(ourItem, this.state.quantity)}
                 style={{
                   fontSize: "1.5em",
                   width: "100%",

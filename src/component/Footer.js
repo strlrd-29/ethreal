@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { Link } from "react-router-dom";
+
 //mui
 import Grid from "@material-ui/core/Grid";
 
@@ -10,6 +12,7 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import Typography from "@material-ui/core/Typography";
+import { Button, CardContent } from "@material-ui/core";
 
 export class Footer extends Component {
   render() {

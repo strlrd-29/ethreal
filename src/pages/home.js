@@ -1,7 +1,5 @@
-import React, { Component, Fragment, useEffect } from "react";
-import Media from "react-media";
+import React, { useEffect } from "react";
 
-import axios from "axios";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 
@@ -10,20 +8,9 @@ import { useDispatch } from "react-redux";
 import { getWebsiteData } from "../redux/actions/userActions";
 //image
 
-import theme from "../util/theme";
 // ui
 
-import CardMedia from "@material-ui/core/CardMedia";
-import Card from "@material-ui/core/Card";
-
 import Grid from "@material-ui/core/Grid";
-import Select from "@material-ui/core/Select";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import { Button, CardContent } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import store from "../redux/store";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -38,6 +25,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getWebsiteData());
+    window.scrollTo(0, 0);
   }, []);
   return (
     <Grid container>

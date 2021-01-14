@@ -21,6 +21,7 @@ import { addToCart } from "../redux/actions/cartActions";
 const styles = {
   card: {
     maxWidth: 800,
+    margin: "auto",
     margin: 10,
     minHeight: 200,
     display: "flex",
@@ -64,10 +65,7 @@ class ItemCard extends Component {
   onMouseOut = () => this.setState({ shadow: false });
   handleAdd = (item) => {
     store.dispatch(addToCart(item));
-    console.log("added");
   };
-
-  // disableCard = () => this.setState({apear: false});
 
   render() {
     const {
@@ -96,25 +94,28 @@ class ItemCard extends Component {
 
     let promo = promotion ? (
       <Typography
+        variant="h5"
         style={{
           position: "absolute",
-          right: "1",
+          left: 5,
+          top: 5,
           padding: 5,
           backgroundColor: "#b100e8",
           color: "white",
         }}
       >
-        Promo !
+        {pourcentagePromotion} %
       </Typography>
     ) : null;
 
-    //  console.log(itemImagesUrl[0])
-
-    //  component={Link} to={`/parcours/${title.replace(/\s/g,'')}`}
-
     return (
       <Card
-        style={{ display: "flex", flexDirection: "column", zIndex: 1 }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          zIndex: 1,
+          position: "relative",
+        }}
         className={classes.card}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
@@ -151,10 +152,10 @@ class ItemCard extends Component {
         </CardActionArea>
         <CardActions>
           <Button
-            onClick={() => this.handleAdd(item)}
             color="primary"
             style={{ Zindex: 2 }}
             fullWidth
+            onClick={() => this.handleAdd(item)}
           >
             Add to panel
           </Button>
