@@ -7,6 +7,8 @@ import {
   SET_AUTHONTICATED,
   END_LOADING,
   SET_WEBSITE,
+  SET_AUTHENTICATED_ADMIN,
+  SET_UNAUTHENTICATED_ADMIN,
 } from "../types";
 import axios from "axios";
 import { getStores } from "./storesActions";
@@ -27,10 +29,14 @@ export const getUserData = () => (dispatch) => {
     .get("/users")
     .then(({ data }) => {
       dispatch({ type: END_LOADING });
-      dispatch({
-        type: SET_USER,
-        payload: data,
-      });
+      if (data.role === "client") {
+        dispatch({
+          type: SET_USER,
+          payload: data,
+        });
+      } else {
+        dispatch({ type: SET_AUTHENTICATED_ADMIN });
+      }
     })
     .catch(({ message }) => {
       dispatch({
@@ -55,7 +61,6 @@ export const signup = (newUserData, history) => (dispatch) => {
         });
       } else {
         dispatch({ type: END_LOADING });
-        dispatch({ type: SET_AUTHONTICATED });
         setAuthorisationHeader(res.data.token);
         dispatch(getUserData());
         dispatch({ type: CLEAR_ERRORS });
@@ -72,16 +77,13 @@ export const signIn = (userData, history) => (dispatch) => {
   axios
     .post("/login", userData)
     .then((res) => {
-      // console.log(res.data.token);
       if (res.data.error) {
         dispatch({ type: SET_ERRORS, payload: res.data.error });
       } else {
         dispatch({ type: END_LOADING });
         setAuthorisationHeader(res.data.token);
         dispatch(getUserData());
-        dispatch({ type: SET_AUTHONTICATED });
         dispatch({ type: CLEAR_ERRORS });
-        // console.log(res);
         history.push("/");
       }
     })
@@ -98,6 +100,7 @@ export const logout = (history) => (dispatch) => {
   history.push("/login");
   delete axios.defaults.headers.common["Authorization"];
   dispatch({ type: SET_UNAUTHONTIFICATED });
+  dispatch({ type: SET_UNAUTHENTICATED_ADMIN });
 };
 
 //get the website data

@@ -18,7 +18,6 @@ import AuthRoute from "./util/AuthRoute";
 import themeObject from "./util/theme";
 //redux
 import { useDispatch } from "react-redux";
-import { SET_AUTHONTICATED } from "./redux/types";
 import { logout, getUserData } from "./redux/actions/userActions";
 //components
 import ScrolleBar from "./component/ScrolleBar";
@@ -37,7 +36,8 @@ import user from "./pages/user";
 import Signup from "./pages/signup";
 import login from "./pages/login";
 import admin from "./pages/admin";
-import PrivateRoute from "./util/PrivateRoute";
+import AdminRoute from "./util/AdminRoute";
+import UserRoute from "./util/UserRoute";
 
 let theme = createMuiTheme(themeObject);
 theme = responsiveFontSizes(theme);
@@ -52,7 +52,6 @@ const App = () => {
         dispatch(logout());
         window.location.href = "/login";
       } else {
-        dispatch({ type: SET_AUTHONTICATED });
         axios.defaults.headers.common["Authorization"] = token;
         dispatch(getUserData());
       }
@@ -68,11 +67,11 @@ const App = () => {
           <Route exact path="/type/:title" component={Type} />
           <Route exact path="/type/:type/:title" component={Item} />
           <Route exact path="/panel" component={Panel} />
-          <PrivateRoute exact path="/user" component={user} />
-          <AuthRoute exact path="/admin" component={admin} />
+          <UserRoute path="/user" component={user} />
+          <AdminRoute path="/admin" component={admin} />
 
-          <AuthRoute exact path="/signup" component={Signup} />
-          <AuthRoute exact path="/login" component={login} />
+          <AuthRoute path="/signup" component={Signup} />
+          <AuthRoute path="/login" component={login} />
         </Switch>
       </div>
       <Divider />

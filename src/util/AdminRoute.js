@@ -2,20 +2,24 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import admin from "../pages/admin";
 
-export const AuthRoute = ({
-  component,
+const PrivateRoute = ({
+  component: Component,
   authenticatedAdmin,
   authenticated,
   path,
   ...rest
 }) => {
+  console.log(authenticatedAdmin);
   return (
     <Route
       {...rest}
       render={(props) =>
         authenticated === true ? (
-          <Route path={path} component={component} />
+          <Redirect to="/user" />
+        ) : authenticatedAdmin ? (
+          <Route exact path={path} component={admin} />
         ) : (
           <Redirect to="/login" />
         )
@@ -25,9 +29,9 @@ export const AuthRoute = ({
 };
 const mapStateToProps = (state) => ({
   authenticated: state.user.authonticated,
+  authenticatedAdmin: state.user.authenticatedAdmin,
 });
-AuthRoute.propTypes = {
+PrivateRoute.propTypes = {
   user: PropTypes.object.isRequired,
 };
-
-export default connect(mapStateToProps)(AuthRoute);
+export default connect(mapStateToProps)(PrivateRoute);

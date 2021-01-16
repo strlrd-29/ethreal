@@ -116,10 +116,7 @@ class admin extends Component {
   };
 
   render() {
-    const {
-      classes,
-      user: { user },
-    } = this.props;
+    const { classes, admin } = this.props;
 
     let allMyParcours = (
       <CardContent className={classes.noProgContent}>
@@ -149,21 +146,21 @@ class admin extends Component {
                 variant="body1"
                 color="textSecondary"
               >
-                <EmailIcon /> : {user.nom} {user.prenom}
+                <EmailIcon /> : {admin?.handle} {admin?.prenom}
               </Typography>
               <Typography
                 className={classes.info}
                 variant="body1"
                 color="textSecondary"
               >
-                <EmailIcon /> : {user.email}
+                <EmailIcon /> : {admin?.email}
               </Typography>
               <Typography
                 className={classes.info}
                 variant="body1"
                 color="textSecondary"
               >
-                <PhoneIcon /> : {user.phone}{" "}
+                <PhoneIcon /> : {admin?.phone}{" "}
               </Typography>
 
               <Typography
@@ -171,14 +168,14 @@ class admin extends Component {
                 variant="body1"
                 color="textSecondary"
               >
-                <RoomIcon /> : {user.wilaya} {user.city}
+                <RoomIcon /> : {admin?.wilaya} {admin?.city}
               </Typography>
               <Typography
                 className={classes.info}
                 variant="body1"
                 color="textSecondary"
               >
-                <RoomIcon /> : {user.adress}
+                <RoomIcon /> : {admin?.adress}
               </Typography>
             </CardContent>
 
@@ -227,7 +224,7 @@ const mapActionToProps = {
   logout,
 };
 const mapStateToProps = (state) => ({
-  user: state.user,
+  admin: state.user.website[1],
 });
 
 export default connect(

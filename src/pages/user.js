@@ -92,6 +92,7 @@ class user extends Component {
   state = {
     in: false,
   };
+
   componentDidMount() {
     window.scrollTo(0, 0);
   }
@@ -119,7 +120,6 @@ class user extends Component {
     const {
       classes,
       user: { user },
-      loading,
     } = this.props;
     let allMyParcours = (
       <CardContent className={classes.noProgContent}>
@@ -129,7 +129,6 @@ class user extends Component {
         </Typography>
       </CardContent>
     );
-
     return (
       <Grid container>
         <Grid item sm={6} xs={12}>
@@ -149,21 +148,21 @@ class user extends Component {
                 variant="body1"
                 color="textSecondary"
               >
-                <EmailIcon /> : {user.nom} {user.prenom}
+                <EmailIcon /> : {user?.nom} {user?.prenom}
               </Typography>
               <Typography
                 className={classes.info}
                 variant="body1"
                 color="textSecondary"
               >
-                <EmailIcon /> : {user.email}
+                <EmailIcon /> : {user?.email}
               </Typography>
               <Typography
                 className={classes.info}
                 variant="body1"
                 color="textSecondary"
               >
-                <PhoneIcon /> : {user.phone}{" "}
+                <PhoneIcon /> : {user?.phone}{" "}
               </Typography>
 
               <Typography
@@ -171,14 +170,14 @@ class user extends Component {
                 variant="body1"
                 color="textSecondary"
               >
-                <RoomIcon /> : {user.wilaya} {user.city}
+                <RoomIcon /> : {user?.wilaya} {user?.city}
               </Typography>
               <Typography
                 className={classes.info}
                 variant="body1"
                 color="textSecondary"
               >
-                <RoomIcon /> : {user.adress}
+                <RoomIcon /> : {user?.adress}
               </Typography>
             </CardContent>
 
