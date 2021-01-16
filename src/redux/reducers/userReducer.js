@@ -59,19 +59,19 @@ export default function (state = initialState, action) {
     case SET_AUTHONTICATED:
       return {
         ...state,
-        authonticated: true,
+        authenticated: true,
       };
 
     case SET_UNAUTHONTIFICATED:
       return {
         ...state,
-        authonticated: false,
+        authenticated: false,
       };
 
     case SET_USER:
       return {
         ...state,
-        authonticated: true,
+        authenticated: true,
         loading: false,
         userData: action.payload,
       };

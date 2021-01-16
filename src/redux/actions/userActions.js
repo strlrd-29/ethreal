@@ -39,7 +39,6 @@ export const getUserData = () => (dispatch) => {
       });
     });
 };
-
 //signup
 
 export const signup = (newUserData, history) => (dispatch) => {
@@ -78,9 +77,9 @@ export const signIn = (userData, history) => (dispatch) => {
         dispatch({ type: SET_ERRORS, payload: res.data.error });
       } else {
         dispatch({ type: END_LOADING });
-        dispatch({ type: SET_AUTHONTICATED });
         setAuthorisationHeader(res.data.token);
         dispatch(getUserData());
+        dispatch({ type: SET_AUTHONTICATED });
         dispatch({ type: CLEAR_ERRORS });
         // console.log(res);
         history.push("/");
@@ -94,10 +93,9 @@ export const signIn = (userData, history) => (dispatch) => {
 //logout
 export const logout = (history) => (dispatch) => {
   localStorage.removeItem("FBIdToken");
-  localStorage.removeItem("state");
   window.localStorage.clear();
 
-  history.push("/signin");
+  history.push("/login");
   delete axios.defaults.headers.common["Authorization"];
   dispatch({ type: SET_UNAUTHONTIFICATED });
 };

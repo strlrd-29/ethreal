@@ -30,11 +30,14 @@ import Item from "./component/Item";
 //pages
 import home from "./pages/home";
 import Panel from "./pages/panel";
+import user from "./pages/user";
 
 //app bar scroll
 
 import Signup from "./pages/signup";
 import login from "./pages/login";
+import admin from "./pages/admin";
+import PrivateRoute from "./util/PrivateRoute";
 
 let theme = createMuiTheme(themeObject);
 theme = responsiveFontSizes(theme);
@@ -51,7 +54,7 @@ const App = () => {
       } else {
         dispatch({ type: SET_AUTHONTICATED });
         axios.defaults.headers.common["Authorization"] = token;
-        dispatch(getUserData);
+        dispatch(getUserData());
       }
     }
   }, [dispatch]);
@@ -65,6 +68,8 @@ const App = () => {
           <Route exact path="/type/:title" component={Type} />
           <Route exact path="/type/:type/:title" component={Item} />
           <Route exact path="/panel" component={Panel} />
+          <PrivateRoute exact path="/user" component={user} />
+          <AuthRoute exact path="/admin" component={admin} />
 
           <AuthRoute exact path="/signup" component={Signup} />
           <AuthRoute exact path="/login" component={login} />

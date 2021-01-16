@@ -1,4 +1,9 @@
-import { SET_USER, SET_WEBSITE } from "../types";
+import {
+  SET_USER,
+  SET_WEBSITE,
+  SET_AUTHONTICATED,
+  SET_UNAUTHONTIFICATED,
+} from "../types";
 
 const initialState = {};
 
@@ -8,6 +13,17 @@ export const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    case SET_AUTHONTICATED:
+      return {
+        ...state,
+        authonticated: true,
+      };
+
+    case SET_UNAUTHONTIFICATED:
+      return {
+        ...state,
+        authonticated: false,
       };
     case SET_WEBSITE:
       return {

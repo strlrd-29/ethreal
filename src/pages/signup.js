@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
+
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 //redux
@@ -23,8 +24,14 @@ class Signup extends Component {
   constructor() {
     super();
     this.state = {
+      nom: "",
+      prenom: "",
       handle: "",
       email: "",
+      adress: "",
+      city: "",
+      wilaya: "",
+      phone: "",
       password: "",
       confirmPassword: "",
       condition: false,
@@ -36,8 +43,8 @@ class Signup extends Component {
     window.scrollTo(0, 0);
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.UI.errors) {
-      this.setState({ errors: nextProps.UI.errors });
+    if (nextProps.ui.errors) {
+      this.setState({ errors: nextProps.ui.errors });
     }
   }
 
@@ -45,10 +52,16 @@ class Signup extends Component {
     event.preventDefault();
     if (this.state.condition) {
       const newUserData = {
+        nom: this.state.nom,
+        prenom: this.state.prenom,
         email: this.state.email,
         password: this.state.password,
         confirmPassword: this.state.confirmPassword,
         handle: this.state.handle,
+        adress: this.state.adress,
+        city: this.state.city,
+        wilaya: this.state.wilaya,
+        phone: this.state.phone,
       };
       this.props.signup(newUserData, this.props.history);
     } else {
@@ -63,18 +76,16 @@ class Signup extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    console.log(event.target.name);
   };
   boxHandleChange = (event) => {
     this.setState({ condition: !this.state.condition });
-    console.log(this.state.condition);
   };
   render() {
     const {
       classes,
-      UI: { loading },
+      ui: { loading },
     } = this.props;
-    const { errors } = this.state;
+    const { errors, condition } = this.state;
 
     return (
       <Grid container className="sign">
@@ -121,6 +132,30 @@ class Signup extends Component {
                 fullWidth
               />
               <TextField
+                id="nom"
+                type="texte"
+                name="nom"
+                label="Nom"
+                helperText={errors.nom}
+                error={errors.nom ? true : false}
+                className={classes.textField}
+                value={this.state.nom}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                id="prenom"
+                type="texte"
+                name="prenom"
+                label="prenom"
+                helperText={errors.prenom}
+                error={errors.prenom ? true : false}
+                className={classes.textField}
+                value={this.state.prenom}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
                 id="email"
                 type="email"
                 name="email"
@@ -129,6 +164,54 @@ class Signup extends Component {
                 error={errors.email ? true : false}
                 className={classes.textField}
                 value={this.state.email}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                id="adress"
+                type="text"
+                name="adress"
+                label="Adress"
+                helperText={errors.adress}
+                error={errors.adress ? true : false}
+                className={classes.textField}
+                value={this.state.adress}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                id="city"
+                type="text"
+                name="city"
+                label="City"
+                helperText={errors.city}
+                error={errors.city ? true : false}
+                className={classes.textField}
+                value={this.state.city}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                id="wilaya"
+                type="text"
+                name="wilaya"
+                label="Wilaya"
+                helperText={errors.wilaya}
+                error={errors.wilaya ? true : false}
+                className={classes.textField}
+                value={this.state.wilaya}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                id="phone"
+                type="text"
+                name="phone"
+                label="Phone number"
+                helperText={errors.phone}
+                error={errors.phone ? true : false}
+                className={classes.textField}
+                value={this.state.phone}
                 onChange={this.handleChange}
                 fullWidth
               />
@@ -212,7 +295,7 @@ signup.propTypes = {
 };
 const mapStateToProps = (state) => ({
   user: state.user,
-  UI: state.ui,
+  ui: state.ui,
 });
 
 export default connect(mapStateToProps, { signup })(
