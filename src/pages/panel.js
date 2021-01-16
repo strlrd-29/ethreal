@@ -55,7 +55,12 @@ class panel extends Component {
 
     return (
       <Grid container justify="center">
-        <Grid container justify="center" style={{ paddingTop: 30 }}>
+        <Grid
+          container
+          justify="center"
+          alignItems="flex-start"
+          style={{ paddingTop: 30 }}
+        >
           <Grid container md={8} style={{ padding: 10 }}>
             <Grid
               container
