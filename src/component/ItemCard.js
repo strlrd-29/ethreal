@@ -77,6 +77,8 @@ class ItemCard extends Component {
         price,
         promotion,
         pourcentagePromotion,
+        itemId,
+        store,
       },
     } = this.props;
     const item = {
@@ -86,6 +88,8 @@ class ItemCard extends Component {
       price,
       promotion,
       pourcentagePromotion,
+      itemId,
+      store,
     };
 
     let newPrice = promotion

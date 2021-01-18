@@ -40,28 +40,22 @@ class login extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-
     const userData = {
       email: this.state.email,
       password: this.state.password,
     };
-
-    //    console.log("login start");
     this.props.signIn(userData, this.props.history);
-    //    console.log("login finish");
   };
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    // console.log(event.target.name);
   };
   render() {
     const {
       classes,
-      UI: { loading },
+      UI: { loading, errors },
     } = this.props;
-    const { errors } = this.state;
 
     return (
       <Grid container className="sign">
@@ -83,41 +77,36 @@ class login extends Component {
               Connexion
             </Typography>
 
-            {errors.geniral && (
+            {errors && (
               <Typography color="textPrimary" className={classes.errField}>
-                {errors.geniral}
+                Wrong credentials please try again
               </Typography>
             )}
 
-            <form
-              className={classes.form}
-              noValidate
-              autoComplete="off"
-              onSubmit={this.handleSubmit}
-            >
+            <form className={classes.form} onSubmit={this.handleSubmit}>
               <TextField
+                required
                 size="medium"
                 id="email"
                 type="email"
                 name="email"
                 label="Email"
-                helperText={errors.email}
-                error={errors.email ? true : false}
                 value={this.state.email}
                 onChange={this.handleChange}
                 fullWidth
+                autoFocus
               />
 
               <TextField
+                required
                 id="password"
                 type="password"
                 name="password"
                 label="Mot de passe"
-                helperText={errors.password}
-                error={errors.password ? true : false}
                 className={classes.textField}
                 value={this.state.password}
                 onChange={this.handleChange}
+                autoComplete="current-password"
                 fullWidth
               />
               <Typography variant="body2" className={classes.link}>

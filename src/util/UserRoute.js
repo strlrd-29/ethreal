@@ -11,14 +11,13 @@ const UserRoute = ({
   path,
   ...rest
 }) => {
-  console.log(authenticated);
   return (
     <Route
       {...rest}
       render={(props) =>
-        authenticated === false ? (
+        authenticatedAdmin === true ? (
           <Redirect to="/admin" />
-        ) : authenticatedAdmin ? (
+        ) : authenticated ? (
           <Route exact path={path} component={user} />
         ) : (
           <Redirect to="/login" />

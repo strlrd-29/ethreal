@@ -11,7 +11,6 @@ const PrivateRoute = ({
   path,
   ...rest
 }) => {
-  console.log(authenticatedAdmin);
   return (
     <Route
       {...rest}

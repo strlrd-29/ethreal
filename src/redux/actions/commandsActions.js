@@ -36,6 +36,7 @@ export const getAllCommands = () => (dispatch) => {
 
 export const makeCommand = (storeId, command) => (dispatch) => {
   dispatch({ type: LOADING_UI });
+
   axios
     .post(`/commands/${storeId}/make`, command)
     .then(() => {

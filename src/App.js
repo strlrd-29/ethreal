@@ -4,7 +4,7 @@ import Divider from "@material-ui/core/Divider";
 
 import axios from "axios";
 
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
 
 import {
@@ -38,19 +38,21 @@ import login from "./pages/login";
 import admin from "./pages/admin";
 import AdminRoute from "./util/AdminRoute";
 import UserRoute from "./util/UserRoute";
+import { CLEAR_ERRORS } from "./redux/types";
 
 let theme = createMuiTheme(themeObject);
 theme = responsiveFontSizes(theme);
 
 const App = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     const token = localStorage.FBIdToken;
     if (token) {
       const decodedToken = jwtDecode(token);
+      console.log(decodedToken);
       if (decodedToken.exp * 1000 < Date.now()) {
-        dispatch(logout());
-        window.location.href = "/login";
+        dispatch(logout(history));
       } else {
         axios.defaults.headers.common["Authorization"] = token;
         dispatch(getUserData());

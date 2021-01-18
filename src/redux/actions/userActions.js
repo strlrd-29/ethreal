@@ -11,6 +11,7 @@ import {
   SET_UNAUTHENTICATED_ADMIN,
 } from "../types";
 import axios from "axios";
+import store from "../store";
 import { getStores } from "./storesActions";
 import { getTypes } from "./typesActions";
 import { getItems } from "./itemsActions";
@@ -82,9 +83,13 @@ export const signIn = (userData, history) => (dispatch) => {
       } else {
         dispatch({ type: END_LOADING });
         setAuthorisationHeader(res.data.token);
-        dispatch(getUserData());
         dispatch({ type: CLEAR_ERRORS });
-        history.push("/");
+        dispatch(getUserData());
+        if (store.getState().cart.length !== 0) {
+          history.push("/panel");
+        } else {
+          history.push("/");
+        }
       }
     })
     .catch((err) => {
@@ -95,7 +100,6 @@ export const signIn = (userData, history) => (dispatch) => {
 //logout
 export const logout = (history) => (dispatch) => {
   localStorage.removeItem("FBIdToken");
-  window.localStorage.clear();
 
   history.push("/login");
   delete axios.defaults.headers.common["Authorization"];

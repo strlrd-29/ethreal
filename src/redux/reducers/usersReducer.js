@@ -20,7 +20,6 @@ export const usersReducer = (state = initialState, action) => {
     case SET_AUTHONTICATED:
       return {
         ...state,
-
         authonticated: true,
       };
     case SET_AUTHENTICATED_ADMIN:

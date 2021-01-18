@@ -7,7 +7,7 @@ const composeEnchancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const loadStateFromStorage = (state) => {
   try {
-    const serializedState = localStorage.getItem("user");
+    const serializedState = localStorage.getItem("state");
     if (serializedState === null) return undefined;
 
     return JSON.parse(serializedState);
@@ -20,7 +20,7 @@ const presistedState = loadStateFromStorage();
 const saveToLocalStorage = (state) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem("user", serializedState);
+    localStorage.setItem("state", serializedState);
   } catch (e) {
     console.log(e);
   }

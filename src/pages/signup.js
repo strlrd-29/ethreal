@@ -107,137 +107,117 @@ class Signup extends Component {
               Inscription
             </Typography>
 
-            {errors.geniral && (
-              <Typography color="textPrimary" className={classes.errField}>
-                {errors.geniral}
-              </Typography>
-            )}
-
-            <form
-              className={classes.form}
-              noValidate
-              autoComplete="off"
-              onSubmit={this.handleSubmit}
-            >
+            <form className={classes.form} onSubmit={this.handleSubmit}>
               <TextField
                 id="handle"
                 type="texte"
                 name="handle"
                 label="Nom d'utilisateur"
-                helperText={errors.handle}
-                error={errors.handle ? true : false}
                 className={classes.textField}
                 value={this.state.handle}
                 onChange={this.handleChange}
                 fullWidth
+                required
+                autoFocus
               />
               <TextField
                 id="nom"
                 type="texte"
                 name="nom"
                 label="Nom"
-                helperText={errors.nom}
-                error={errors.nom ? true : false}
                 className={classes.textField}
                 value={this.state.nom}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <TextField
                 id="prenom"
                 type="texte"
                 name="prenom"
                 label="prenom"
-                helperText={errors.prenom}
-                error={errors.prenom ? true : false}
                 className={classes.textField}
                 value={this.state.prenom}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <TextField
                 id="email"
                 type="email"
                 name="email"
                 label="Email"
-                helperText={errors.email}
-                error={errors.email ? true : false}
                 className={classes.textField}
                 value={this.state.email}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <TextField
                 id="adress"
                 type="text"
                 name="adress"
                 label="Adress"
-                helperText={errors.adress}
-                error={errors.adress ? true : false}
                 className={classes.textField}
                 value={this.state.adress}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <TextField
                 id="city"
                 type="text"
                 name="city"
                 label="City"
-                helperText={errors.city}
-                error={errors.city ? true : false}
                 className={classes.textField}
                 value={this.state.city}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <TextField
                 id="wilaya"
                 type="text"
                 name="wilaya"
                 label="Wilaya"
-                helperText={errors.wilaya}
-                error={errors.wilaya ? true : false}
                 className={classes.textField}
                 value={this.state.wilaya}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <TextField
                 id="phone"
                 type="text"
                 name="phone"
                 label="Phone number"
-                helperText={errors.phone}
-                error={errors.phone ? true : false}
                 className={classes.textField}
                 value={this.state.phone}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <TextField
                 id="password"
                 type="password"
                 name="password"
                 label="Mot de passe"
-                helperText={errors.password}
-                error={errors.password ? true : false}
                 className={classes.textField}
                 value={this.state.password}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <TextField
                 id="confirmPassword"
                 type="password"
                 name="confirmPassword"
                 label="Confirmer le Mot de passe"
-                helperText={errors.confirmPassword}
-                error={errors.confirmPassword ? true : false}
                 className={classes.textField}
                 value={this.state.confirmPassword}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <Typography
                 variant="body2"

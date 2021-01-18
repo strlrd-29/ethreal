@@ -28,7 +28,8 @@ const useStyles = makeStyles({
     // justifyContent:"center",
     alignItems: "center",
     width: "100%",
-    height: 200,
+    height: "auto",
+    paddingBottom: 20,
   },
   resize: {
     fontSize: "2em",
@@ -40,6 +41,21 @@ const useStyles = makeStyles({
 
     // top:20,
     color: "black",
+  },
+  link: {
+    textDecoration: "none",
+    width: "100%",
+    color: "black",
+    alignSelf: "flex-start",
+    padding: "15px",
+    textAlign: "center",
+    transition: "all 0.1s ease",
+    "&:hover": {
+      color: "#003668",
+    },
+    "&:focus": {
+      color: "#9500ae",
+    },
   },
 });
 
@@ -96,10 +112,16 @@ export default function TemporaryDrawer() {
           <CloseIcon fontSize="large" />
         </IconButton>
 
-        <form style={{ width: "80%" }} noValidate autoComplete="off">
+        <form
+          style={{ width: "80%" }}
+          noValidate
+          autoComplete="off"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <TextField
             style={{ width: "100%" }}
             placeholder="Search"
+            autoFocus
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -116,8 +138,23 @@ export default function TemporaryDrawer() {
             id="outlined-basic"
             label=""
             variant="outlined"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
         </form>
+        {results &&
+          results.map((item) => (
+            <Link
+              className={classes.link}
+              key={item.item.itemId}
+              to={`/type/${item.item.type
+                .split(" ")
+                .join("_")}/${item.item.title.split(" ").join("_")}`}
+              onClick={toggleDrawer("top", false)}
+            >
+              {item.item.title}
+            </Link>
+          ))}
       </div>
     );
   }
