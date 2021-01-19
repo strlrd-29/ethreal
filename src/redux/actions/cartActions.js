@@ -3,6 +3,7 @@ import {
   ADD_QUANTITY,
   REMOVE_ITEM,
   DECREASE_QUANTITY,
+  CLEAR_CART,
 } from "../types";
 import store from "../store";
 
@@ -14,6 +15,9 @@ export const addToCart = (item, quantity = 1) => (dispatch) => {
   } else {
     dispatch({ type: ADD_QUANTITY, payload: item, quantity: quantity });
   }
+};
+export const clearAllCart = () => (dispatch) => {
+  dispatch({ type: CLEAR_CART });
 };
 export const decreaseQuantity = (item) => (dispatch) => {
   if (item.quantity === 1) {

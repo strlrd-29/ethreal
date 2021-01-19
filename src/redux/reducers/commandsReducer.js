@@ -4,20 +4,11 @@ const initialState = [];
 export const commandsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_COMMANDS:
-      return {
-        ...state,
-        commands: action.payload,
-      };
+      return [...state, action.payload];
     case GET_ALL_COMMANDS:
-      return {
-        ...state,
-        allCommands: action.payload,
-      };
+      return [...state, action.payload];
     case DELETE_COMMANDS:
-      return {
-        ...state,
-        commands: [],
-      };
+      return [];
     default:
       return state;
   }

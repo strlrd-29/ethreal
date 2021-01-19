@@ -34,11 +34,11 @@ export const getAllCommands = () => (dispatch) => {
     });
 };
 
-export const makeCommand = (storeId, command) => (dispatch) => {
+export const makeCommand = (command) => (dispatch) => {
   dispatch({ type: LOADING_UI });
 
   axios
-    .post(`/commands/${storeId}/make`, command)
+    .post(`/commands/make`, command)
     .then(() => {
       dispatch(getClientCommands());
     })

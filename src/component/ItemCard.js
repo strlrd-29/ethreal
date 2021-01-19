@@ -14,9 +14,11 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 import store from "../redux/store";
 import { addToCart } from "../redux/actions/cartActions";
+import { connect } from "react-redux";
 
 const styles = {
   card: {
@@ -59,12 +61,17 @@ class ItemCard extends Component {
   state = {
     shadow: false,
     apear: true,
+    adminError: false,
   };
 
   onMouseOver = () => this.setState({ shadow: true });
   onMouseOut = () => this.setState({ shadow: false });
   handleAdd = (item) => {
-    store.dispatch(addToCart(item));
+    if (this.props.authenticatedAdmin) {
+      this.setState({ adminError: true });
+    } else {
+      store.dispatch(addToCart(item));
+    }
   };
 
   render() {
@@ -164,9 +171,20 @@ class ItemCard extends Component {
             Add to panel
           </Button>
         </CardActions>
+        {this.state.adminError && (
+          <Alert
+            severity="warning"
+            onClose={() => this.setState({ adminError: false })}
+          >
+            you can't add items as admin
+          </Alert>
+        )}
       </Card>
     );
   }
 }
+const mapStateToProps = (state) => ({
+  authenticatedAdmin: state.user.authenticatedAdmin,
+});
 
-export default withStyles(styles)(ItemCard);
+export default connect(mapStateToProps)(withStyles(styles)(ItemCard));

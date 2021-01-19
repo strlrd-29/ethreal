@@ -3,6 +3,7 @@ import {
   ADD_QUANTITY,
   REMOVE_ITEM,
   DECREASE_QUANTITY,
+  CLEAR_CART,
 } from "../types";
 const initialState = [];
 
@@ -35,6 +36,8 @@ export const cartReducer = (state = initialState, action) => {
     //   );
     case REMOVE_ITEM:
       return state.filter((item) => item.item.title !== action.payload);
+    case CLEAR_CART:
+      return [];
     default:
       return state;
   }

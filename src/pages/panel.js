@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -14,15 +14,15 @@ import Divider from "@material-ui/core/Divider";
 
 import Grid from "@material-ui/core/Grid";
 import { Button, TextField } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import Typography from "@material-ui/core/Typography";
+import { clearAllCart } from "../redux/actions/cartActions";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
 });
 
 const Cart = ({ classes }) => {
-  let storesId = [];
-
   let command = {
     quantities: [],
     titles: [],
@@ -36,34 +36,29 @@ const Cart = ({ classes }) => {
   const authenticatedAdmin = useSelector(
     (state) => state.user.authenticatedAdmin
   );
-  const stores = useSelector((state) => state.stores);
+  const [adminError, setAdminError] = useState(false);
+  const [cartError, setCartError] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   });
 
   const handleClick = () => {
     if (authenticatedAdmin) {
-      alert("you are the admin");
+      setAdminError(true);
     } else {
       if (authenticated) {
         if (cart.length !== 0) {
-          stores.map((store) => {
-            cart.map((item) => {
-              if (item.item.store === store.title) {
-                storesId.push(store.storeId);
-              }
-            });
-          });
-          command.uniqueStores = [...new Set(storesId)];
           cart.map((item) => {
             command.quantities.push(item.quantity);
             command.prices.push(item.item.price);
             command.itemsId.push(item.item.itemId);
             command.titles.push(item.item.title);
           });
-          dispatch(makeCommand(command.uniqueStores, command));
+          dispatch(makeCommand(command));
+          dispatch(clearAllCart());
         } else {
-          alert("you need to add items to your cart");
+          setCartError(true);
         }
       } else {
         history.push("/login");
@@ -104,9 +99,35 @@ const Cart = ({ classes }) => {
         style={{ paddingTop: 30 }}
       >
         <Grid container md={8} style={{ padding: 10 }}>
-          <Grid container xs={12} justify="center" style={{ marginBottom: 30 }}>
+          <Grid
+            container
+            xs={12}
+            justify="space-between"
+            style={{ marginBottom: 30 }}
+          >
             <Typography variant="h4">Order List</Typography>
+            {adminError && (
+              <Alert
+                severity="warning"
+                onClose={() => {
+                  setAdminError(false);
+                }}
+              >
+                you can't place orders as an admin
+              </Alert>
+            )}
+            {cartError && (
+              <Alert
+                severity="warning"
+                onClose={() => {
+                  setCartError(false);
+                }}
+              >
+                you need to add items to your cart
+              </Alert>
+            )}
           </Grid>
+
           {allItems}
         </Grid>
         <Grid container alignItems="flex-start" md={3}>
