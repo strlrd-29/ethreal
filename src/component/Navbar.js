@@ -91,7 +91,7 @@ class Navbar extends Component {
 
     let allStores = stores ? (
       Object.keys(stores).map((post) => {
-        return <NavButton store={stores[post]} types={types} />;
+        return <NavButton store={stores[post]} types={types}  />;
       })
     ) : (
       <Grid item xs={12} align="center">
@@ -116,12 +116,14 @@ class Navbar extends Component {
                     <Grid container xs={12} direction="row">
                       <Grid
                         container
-                        xs
+                        xs={4}
                         justify="flex-start"
-                        alignItems="flex-start"
+                        alignItems="center"
                       >
                         <Menu storesData={stores} types={types} />
+                        <Search />
                       </Grid>
+
                       <Grid container xs={4} justify="center">
                         <Button
                           className={classes.logo}
@@ -136,11 +138,11 @@ class Navbar extends Component {
 
                       <Grid
                         container
-                        xs={5}
+                        xs={4}
                         justify="flex-end"
                         alignItems="center"
                       >
-                        <Search />
+                        
 
                         <IconButton
                           component={Link}

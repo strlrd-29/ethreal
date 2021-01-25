@@ -56,7 +56,9 @@ export default function Menu(props) {
 
   return (
     <div>
-      <IconButton onClick={handleChange}>
+      <IconButton onClick={handleChange} 
+        style={{backgroundColor: "transparent",
+                textTransform: "none"}} >
         <MenuIcon fontSize="large" style={{ color: "#2b2d42" }} />
       </IconButton>
 

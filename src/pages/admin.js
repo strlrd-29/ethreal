@@ -24,68 +24,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
-  userimage: {
-    height: 150,
-    width: 150,
-    margin: 20,
-  },
-
-  profile: {
-    margin: 20,
-  },
-
-  info: {
-    marginTop: 10,
-    display: "flex",
-    alignItem: "center",
-  },
-  editButton: {
-    width: "100%",
-    height: 50,
-  },
-  title: {
-    width: "100%",
-    textAlign: "center",
-    height: 50,
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  view: {
-    display: "flex",
-    alignItems: "center",
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-  photo: {
-    marginTop: 20,
-    marginLeft: -10,
-  },
-  more: {
-    marginTop: 10,
-    width: "100%",
-  },
-  progButton: {
-    width: "50%",
-    height: 50,
-  },
-  noprogram: {
-    height: 150,
-    width: 150,
-  },
-  noProgContent: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
-    marginBottom: 20,
-  },
+  
 });
 
 class admin extends Component {
@@ -118,98 +57,11 @@ class admin extends Component {
   render() {
     const { classes, admin } = this.props;
 
-    let allMyParcours = (
-      <CardContent className={classes.noProgContent}>
-        <CardMedia className={classes.noprogram} image={noprogram} />
-        <Typography variant="body2" color="textSecondary">
-          There are no commands to Show
-        </Typography>
-      </CardContent>
-    );
+   
 
     return (
       <Grid container>
-        <Grid item sm={6} xs={12}>
-          <Card className={classes.profile}>
-            <Typography
-              className={classes.title}
-              variant="h5"
-              color="textPrimary"
-            >
-              User information
-            </Typography>
-
-            <Divider />
-            <CardContent>
-              <Typography
-                className={classes.info}
-                variant="body1"
-                color="textSecondary"
-              >
-                <EmailIcon /> : {admin?.handle} {admin?.prenom}
-              </Typography>
-              <Typography
-                className={classes.info}
-                variant="body1"
-                color="textSecondary"
-              >
-                <EmailIcon /> : {admin?.email}
-              </Typography>
-              <Typography
-                className={classes.info}
-                variant="body1"
-                color="textSecondary"
-              >
-                <PhoneIcon /> : {admin?.phone}{" "}
-              </Typography>
-
-              <Typography
-                className={classes.info}
-                variant="body1"
-                color="textSecondary"
-              >
-                <RoomIcon /> : {admin?.wilaya} {admin?.city}
-              </Typography>
-              <Typography
-                className={classes.info}
-                variant="body1"
-                color="textSecondary"
-              >
-                <RoomIcon /> : {admin?.adress}
-              </Typography>
-            </CardContent>
-
-            <Divider />
-          </Card>
-        </Grid>
-
-        <Grid item sm={6} xs={12}>
-          <Card className={classes.profile}>
-            <Typography
-              className={classes.title}
-              variant="h5"
-              color="textPrimary"
-            >
-              Commands information
-            </Typography>
-            <Divider />
-            {allMyParcours}
-            <Divider />
-          </Card>
-        </Grid>
-        <Grid item sm={6} xs={12}>
-          <Card className={classes.profile}>
-            <Button
-              className={classes.editButton}
-              variant="contained"
-              style={{ backgroundColor: "#f94144", color: "#fff" }}
-              endIcon={<ExitToAppIcon />}
-              onClick={this.handleLogout}
-            >
-              LOGOUT
-            </Button>
-          </Card>
-        </Grid>
+       
       </Grid>
     );
   }

@@ -4,6 +4,7 @@ import Divider from "@material-ui/core/Divider";
 
 import axios from "axios";
 
+import ReactGa from 'react-ga';
 import { Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
 
@@ -23,6 +24,7 @@ import { logout, getUserData } from "./redux/actions/userActions";
 import ScrolleBar from "./component/ScrolleBar";
 import Footer from "./component/Footer";
 
+import Store from "./component/Store";
 import Type from "./component/Type";
 import Item from "./component/Item";
 
@@ -57,7 +59,13 @@ const App = () => {
         dispatch(getUserData());
       }
     }
+
+   ReactGa.initialize('G-8RFM869L4K');
+      ReactGa.pageview('/');
+
   }, [dispatch]);
+
+  
   return (
     <MuiThemeProvider theme={theme}>
       <ScrolleBar />
@@ -65,6 +73,7 @@ const App = () => {
       <div className="container">
         <Switch>
           <Route exact path="/" component={home} />
+          <Route exact path="/collection/:title" component={Store} />
           <Route exact path="/type/:title" component={Type} />
           <Route exact path="/type/:type/:title" component={Item} />
           <Route exact path="/panel" component={Panel} />

@@ -104,7 +104,7 @@ class Item extends Component {
       <Grid container>
         <Grid container xs={12}>
           <Grid item md={6} xs={12}>
-            <ItemImage item={ourItem} />
+            <ItemImage  itemStore={ourItem.store} itemImages={ourItem.itemImagesUrl} />
           </Grid>
           <Grid container md={5} xs={12} style={{ padding: 10 }}>
             <Grid item xs={12} style={{ marginBottom: 30 }}>

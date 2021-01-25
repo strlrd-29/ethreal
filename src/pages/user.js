@@ -40,8 +40,9 @@ const styles = (theme) => ({
     alignItem: "center",
   },
   editButton: {
-    width: "100%",
+    //width: "90%",
     height: 50,
+    margin:20
   },
   title: {
     width: "100%",
@@ -130,9 +131,9 @@ class user extends Component {
       </CardContent>
     );
     return (
-      <Grid container>
-        <Grid item sm={6} xs={12}>
-          <Card className={classes.profile}>
+      <Grid container style={{padding:20}} >
+        <Grid item sm={6} xs={12} style={{ padding: 20 , backgroundColor: "#f5f3f4"}}>
+          
             <Typography
               className={classes.title}
               variant="h5"
@@ -181,26 +182,7 @@ class user extends Component {
               </Typography>
             </CardContent>
 
-            <Divider />
-          </Card>
-        </Grid>
-
-        <Grid item sm={6} xs={12}>
-          <Card className={classes.profile}>
-            <Typography
-              className={classes.title}
-              variant="h5"
-              color="textPrimary"
-            >
-              Commands information
-            </Typography>
-            <Divider />
-            {allMyParcours}
-            <Divider />
-          </Card>
-        </Grid>
-        <Grid item sm={6} xs={12}>
-          <Card className={classes.profile}>
+            
             <Button
               className={classes.editButton}
               variant="contained"
@@ -210,8 +192,24 @@ class user extends Component {
             >
               LOGOUT
             </Button>
-          </Card>
+            
         </Grid>
+
+        <Grid item sm={6} xs={12} style={{ padding: 20 }}>
+          
+            <Typography
+              className={classes.title}
+              variant="h5"
+              color="textPrimary"
+            >
+              Commands information
+            </Typography>
+            <Divider />
+            {allMyParcours}
+           
+          
+        </Grid>
+       
       </Grid>
     );
   }

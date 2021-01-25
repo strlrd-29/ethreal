@@ -1,14 +1,23 @@
 import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+
+
+import { Info } from "@mui-treasury/components/info";
+import { useGalaxyInfoStyles } from "@mui-treasury/styles/info/galaxy";
+import { useCoverCardMediaStyles } from "@mui-treasury/styles/cardMedia/cover";
+
+
 import MobileStepper from "@material-ui/core/MobileStepper";
 import Typography from "@material-ui/core/Typography";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
+import { autoPlay } from 'react-swipeable-views-utils';
+
 import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
 
-const AutoPlaySwipeableViews = SwipeableViews;
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,13 +35,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   img: {
-    height: 550,
+    height: 600,
     display: "block",
     width: "100%",
     overflow: "hidden",
     maxHeight: 600,
     zIndex:1,
-    objectFit: "contain",
+    //objectFit: "contain",
   },
   typeName: {
     float: "left",
@@ -65,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ItemImage(props) {
+function StoreImage(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -88,15 +97,16 @@ function ItemImage(props) {
     <div className={classes.root}>
       <Box className={classes.typeName}>
         <Typography
-          variant="body1"
+          variant="h5"
           color="textPrimary"
-          style={{ display: "inline-block", borderBottom: "4px #b100e8 solid" }}
+          style={{ display: "inline-block", borderLeft: "4px #b100e8 solid",paddingLeft:10 }}
         >
-          {props.itemStore}
+         
         </Typography>
       </Box>
 
       <AutoPlaySwipeableViews
+        interval="6000"
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={activeStep}
         onChangeIndex={handleStepChange}
@@ -114,7 +124,7 @@ function ItemImage(props) {
         <IconButton
           color="primary"
           variant="outlined"
-          size="medium"
+          size="large"
           onClick={handleBack}
           disabled={activeStep === 0}
         >
@@ -126,7 +136,7 @@ function ItemImage(props) {
         </IconButton>
         <IconButton
           color="primary"
-          size="medium"
+          size="large"
           onClick={handleNext}
           disabled={activeStep === maxSteps - 1}
         >
@@ -148,4 +158,4 @@ function ItemImage(props) {
   );
 }
 
-export default ItemImage;
+export default StoreImage;

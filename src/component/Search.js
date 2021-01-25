@@ -170,10 +170,11 @@ export default function TemporaryDrawer() {
               color: "black",
               backgroundColor: "transparent",
               textTransform: "none",
+              
             }}
           >
             <SearchIcon
-              style={{ transform: "rotate(90deg)", fontSize: "1.2em" }}
+              style={{ transform: "rotate(90deg)", fontSize: "1.1em" }}
             />
           </IconButton>
           <Drawer

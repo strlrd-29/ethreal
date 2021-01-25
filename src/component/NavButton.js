@@ -86,6 +86,9 @@ export default function MenuListComposition(props) {
     <div className={classes.root}>
       <div onMouseEnter={handleToggle} onMouseLeave={handleToggle}>
         <Button
+          component={Link}
+          to={`/collection/${props.store.title.split(" ").join("_")}`}
+
           disableRipple="true"
           ref={anchorRef}
           aria-controls={open ? "menu-list-grow" : undefined}
