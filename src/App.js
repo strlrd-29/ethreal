@@ -35,6 +35,8 @@ import Item from "./component/Item";
 import home from "./pages/home";
 import Panel from "./pages/panel";
 import user from "./pages/user";
+import random from "./pages/commands";
+import shop from "./pages/shop";
 
 //app bar scroll
 
@@ -43,7 +45,9 @@ import login from "./pages/login";
 import admin from "./pages/admin";
 import AdminRoute from "./util/AdminRoute";
 import UserRoute from "./util/UserRoute";
-import { CLEAR_ERRORS } from "./redux/types";
+import { CLEAR_ERRORS, SET_ADMIN_NAV, UNSET_ADMIN_NAV } from "./redux/types";
+import commands from "./pages/commands";
+import website from "./pages/website";
 
 let theme = createMuiTheme(themeObject);
 theme = responsiveFontSizes(theme);
@@ -80,6 +84,9 @@ const App = () => {
           <Route exact path="/panel" component={Panel} />
           <UserRoute path="/user" component={user} />
           <AdminRoute path="/admin" component={admin} />
+          <AdminRoute path="/admin/shop" component={shop} />
+          <AdminRoute path="/admin/commands" component={commands} />
+          <AdminRoute path="/admin/website" component={website} />
 
           <AuthRoute path="/signup" component={Signup} />
           <AuthRoute path="/login" component={login} />

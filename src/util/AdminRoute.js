@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import admin from "../pages/admin";
 
 const PrivateRoute = ({
   component: Component,
@@ -18,7 +17,7 @@ const PrivateRoute = ({
         authenticated === true ? (
           <Redirect to="/user" />
         ) : authenticatedAdmin ? (
-          <Route exact path={path} component={admin} />
+          <Route path={path} component={Component} />
         ) : (
           <Redirect to="/login" />
         )

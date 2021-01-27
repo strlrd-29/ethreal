@@ -46,7 +46,6 @@ const styles = (theme) => ({
   button: {
     height: "60px",
     fontSize: "1.2em",
-   
   },
   items: {
     height: 55,
@@ -92,7 +91,7 @@ class NavbarAdmin extends Component {
 
   render() {
     const { classes, stores, types, authenticated, cart } = this.props;
-  
+
     return (
       <div>
         <Media
@@ -113,7 +112,6 @@ class NavbarAdmin extends Component {
                         justify="flex-start"
                         alignItems="center"
                       >
-                        
                         <Search />
                       </Grid>
 
@@ -128,9 +126,6 @@ class NavbarAdmin extends Component {
                           ETHE
                         </Button>
                       </Grid>
-
-                      
-                      
                     </Grid>
                   </Grid>
                 </Toolbar>
@@ -161,13 +156,15 @@ class NavbarAdmin extends Component {
                         </Button>
                       </Grid>
                       <Grid container xs={4} justify="space-around">
-
-                      <Button
+                        <Button
                           className={classes.button}
                           color="textPrimary"
-                          style={{ backgroundColor: "transparent", textTransform: "none",}}
+                          style={{
+                            backgroundColor: "transparent",
+                            textTransform: "none",
+                          }}
                           component={Link}
-                          to="/"
+                          to="/admin/website"
                           onClick={this.handleChangeHome}
                         >
                           WEBSITE
@@ -175,9 +172,12 @@ class NavbarAdmin extends Component {
                         <Button
                           className={classes.button}
                           color="textPrimary"
-                          style={{ backgroundColor: "transparent", textTransform: "none",}}
+                          style={{
+                            backgroundColor: "transparent",
+                            textTransform: "none",
+                          }}
                           component={Link}
-                          to="/"
+                          to="/admin/shop"
                           onClick={this.handleChangeHome}
                         >
                           SHOP
@@ -185,21 +185,25 @@ class NavbarAdmin extends Component {
                         <Button
                           className={classes.button}
                           color="textPrimary"
-                          style={{ backgroundColor: "transparent", textTransform: "none",}}
+                          style={{
+                            backgroundColor: "transparent",
+                            textTransform: "none",
+                          }}
                           component={Link}
-                          to="/"
+                          to="/admin/commands"
                           onClick={this.handleChangeHome}
                         >
                           COMMANDS
                         </Button>
-
                       </Grid>
 
-                      <Grid container xs={4} justify="flex-end" alignItems="center">
+                      <Grid
+                        container
+                        xs={4}
+                        justify="flex-end"
+                        alignItems="center"
+                      >
                         <Search />
-
-                        
-
                       </Grid>
                     </Grid>
                     <Grid container direction="row" justify="center"></Grid>

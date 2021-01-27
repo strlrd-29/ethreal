@@ -28,14 +28,14 @@ const styles = (theme) => ({
   ...theme.spreadThis,
 });
 
-class admin extends Component {
+class shop extends Component {
   state = {
     in: false,
   };
   componentDidMount() {
     window.scrollTo(0, 0);
   }
-  componentWillMount() {
+  componentDidMount() {
     store.dispatch({ type: SET_ADMIN_NAV });
   }
   componentWillUnmount() {
@@ -64,19 +64,10 @@ class admin extends Component {
   render() {
     const { classes, admin } = this.props;
 
-    return (
-      <Grid container>
-        <button onClick={this.handleLogout}>logout</button>
-      </Grid>
-    );
+    return <Grid container>shoo</Grid>;
   }
 }
 
-admin.propTypes = {
-  classes: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  logout: PropTypes.func.isRequired,
-};
 const mapActionToProps = {
   logout,
 };
@@ -87,4 +78,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   mapActionToProps
-)(withStyles(styles)(admin));
+)(withStyles(styles)(shop));
