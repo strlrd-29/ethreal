@@ -16,6 +16,12 @@ import noprogram from "../image/noprogram.gif";
 
 // ui
 
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
@@ -31,6 +37,25 @@ const styles = (theme) => ({
     flexDirection: "column",
     marginBottom: 20,
   },
+  cardType:{
+    width:"100%",
+    position:"relative",
+  },
+  imageType:{
+    width:"100%",
+    height:200
+  },
+  cardContent:{
+    position:"absolute",
+    top:0,
+    bottom:0,
+    right:0,
+    left:0,
+    backgroundColor:"rgba(0,0,0,0.5)",
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+  }
 });
 class Type extends Component {
   state = {
@@ -97,9 +122,33 @@ class Type extends Component {
     );
 
     return (
-      <Grid container>
-        <Grid container justify="center" xs={12} >
-          <Typography variant="h4" style={{backgroundColor:"#b100e8",color:"white"}} >{ourType.title}</Typography> 
+      <Grid container direction="column" alignItems="center">
+        <Grid container xs={12} md={10} style={{marginTop:20,marginBottom:30}}>
+            <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
+              <Link color="inherit" href="/" >
+                  Home
+              </Link>
+              <Link color="inherit" href={`/collection/${ourType.store}`} >
+                  {ourType.store}
+              </Link>
+              <Typography color="textPrimary">{ourType.title}</Typography>
+            </Breadcrumbs>
+        </Grid>
+        <Grid container justify="center" xs={12} md={10} >
+          <Card className={classes.cardType}>
+            
+            <CardMedia 
+                 className={classes.imageType}
+                 image={ourType.typeImagesUrl[0]}
+                 title={ourType.title}
+            />
+
+            <CardContent className={classes.cardContent}>
+            <Typography variant="h4" style={{border:"4px #b100e8 solid",padding:10,color:"white"}} >{ourType.title}</Typography>
+          </CardContent>
+          </Card>
+          
+           
         </Grid>
 
         <Media

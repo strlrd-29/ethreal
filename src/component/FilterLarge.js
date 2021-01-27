@@ -37,20 +37,23 @@ const styles = (theme) => ({
     marginBottom: 20,
   },
   formControl: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(0),
     minWidth: 120,
+    marginRight: 15,
   },
 });
 export class FilterLarge extends Component {
   state = {
     filterType: "",
     size: 3,
+    itemsCount: this.props.items.length,
   };
 
   handleChange = (e) => {
     this.setState({ filterType: e.target.value });
   };
   render() {
+    console.log(this.state.itemsCount);
     const { classes, items } = this.props;
     if (this.state.filterType === 10) {
       items.sort((a, b) => {
@@ -87,18 +90,57 @@ export class FilterLarge extends Component {
         }
         return 0;
       });
-      items.map((item) => {
-        console.log(item.createdAt);
+    }
+    if (this.state.filterType === 50) {
+      items.sort(function (a, b) {
+        const x = a.title.toLowerCase();
+        const y = b.title.toLowerCase();
+        if (x < y) {
+          return -1;
+        }
+        if (x > y) {
+          return 1;
+        }
+        return 0;
       });
+    }
+    if (this.state.filterType === 60) {
+      items.sort(function (a, b) {
+        const x = a.title.toLowerCase();
+        const y = b.title.toLowerCase();
+        if (x < y) {
+          return 1;
+        }
+        if (x > y) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+    if (this.state.filterType === 70) {
+      items.sort(function (a, b) {
+        return b.bestSell - a.bestSell;
+      });
+    }
+    if (this.state.filterType === 80) {
+      this.state.itemsCount = 5;
+    }
+    if (this.state.filterType === 90) {
+      this.state.itemsCount = 6;
+    }
+    if (this.state.filterType === 100) {
+      this.state.itemsCount = 7;
     }
 
     let allItems = items[0] ? (
-      items.map((post) => {
-        return (
-          <Grid key={post.pubId} item xs={6} md={this.state.size}>
-            <ItemCard key={post.pubId} post={post} />
-          </Grid>
-        );
+      this.props.items.map((post, i) => {
+        if (i < this.state.itemsCount) {
+          return (
+            <Grid key={post.pubId} item xs={6} md={this.state.size}>
+              <ItemCard key={post.pubId} post={post} />
+            </Grid>
+          );
+        }
       })
     ) : (
       <Grid container direction="column" align="center">
@@ -111,13 +153,15 @@ export class FilterLarge extends Component {
       </Grid>
     );
 
-    let allItemsOne = this.props.items[0] ? (
-      this.props.items.map((post) => {
-        return (
-          <Grid key={post.pubId} item xs={12}>
-            <ItemCardOne key={post.pubId} post={post} />
-          </Grid>
-        );
+    let allItemsOne = items[0] ? (
+      this.props.items.map((post, i) => {
+        if (i < this.state.itemsCount) {
+          return (
+            <Grid key={post.pubId} item xs={12}>
+              <ItemCardOne key={post.pubId} post={post} />
+            </Grid>
+          );
+        }
       })
     ) : (
       <Grid container direction="column" align="center">
@@ -135,7 +179,7 @@ export class FilterLarge extends Component {
         <Grid
           container
           xs={10}
-          style={{ padding: 10, marginTop: 50, border: "2px gray solid" }}
+          style={{ padding: 0, marginTop: 50, backgroundColor: "#f5f3f4" }}
         >
           <Grid container xs={12} md={6}>
             <IconButton
@@ -173,7 +217,7 @@ export class FilterLarge extends Component {
               <ViewComfyIcon style={{ fontSize: "2em" }} />
             </IconButton>
           </Grid>
-          <Grid container xs={12} md={6} justify="flex-end">
+          <Grid container xs={12} md={6} justify="flex-end" alignItems="center">
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel id="demo-simple-select-outlined-label">
                 Sort by
@@ -189,6 +233,9 @@ export class FilterLarge extends Component {
                 <MenuItem value={20}>Price : hight to low</MenuItem>
                 <MenuItem value={30}>Date : old to new</MenuItem>
                 <MenuItem value={40}>Date : New to old</MenuItem>
+                <MenuItem value={50}>Alphabitically : A-Z</MenuItem>
+                <MenuItem value={60}>Alphabitically : Z-A</MenuItem>
+                <MenuItem value={70}>Best Selling</MenuItem>
               </Select>
             </FormControl>
             <FormControl variant="outlined" className={classes.formControl}>
@@ -202,9 +249,9 @@ export class FilterLarge extends Component {
                 onChange={this.handleChange}
                 label="Age"
               >
-                <MenuItem value={10}>25</MenuItem>
-                <MenuItem value={20}>50</MenuItem>
-                <MenuItem value={30}>100</MenuItem>
+                <MenuItem value={80}>5</MenuItem>
+                <MenuItem value={90}>6</MenuItem>
+                <MenuItem value={100}>7</MenuItem>
               </Select>
             </FormControl>
           </Grid>

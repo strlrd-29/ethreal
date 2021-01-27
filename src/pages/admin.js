@@ -21,10 +21,11 @@ import RoomIcon from "@material-ui/icons/Room";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import store from "../redux/store";
+import { SET_ADMIN_NAV, UNSET_ADMIN_NAV } from "../redux/types";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
-  
 });
 
 class admin extends Component {
@@ -33,8 +34,11 @@ class admin extends Component {
   };
   componentDidMount() {
     window.scrollTo(0, 0);
+    store.dispatch({ type: SET_ADMIN_NAV });
   }
-
+  componentWillUnmount() {
+    store.dispatch({ type: UNSET_ADMIN_NAV });
+  }
   handleMoreItem = () => {
     this.setState({ in: !this.state.in });
   };
@@ -57,13 +61,7 @@ class admin extends Component {
   render() {
     const { classes, admin } = this.props;
 
-   
-
-    return (
-      <Grid container>
-       
-      </Grid>
-    );
+    return <Grid container></Grid>;
   }
 }
 

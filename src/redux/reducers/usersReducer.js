@@ -5,6 +5,8 @@ import {
   SET_UNAUTHONTIFICATED,
   SET_AUTHENTICATED_ADMIN,
   SET_UNAUTHENTICATED_ADMIN,
+  SET_ADMIN_NAV,
+  UNSET_ADMIN_NAV,
 } from "../types";
 
 const initialState = {};
@@ -26,6 +28,16 @@ export const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         authenticatedAdmin: true,
+      };
+    case SET_ADMIN_NAV:
+      return {
+        ...state,
+        adminNav: true,
+      };
+    case UNSET_ADMIN_NAV:
+      return {
+        ...state,
+        adminNav: false,
       };
     case SET_UNAUTHENTICATED_ADMIN:
       return {

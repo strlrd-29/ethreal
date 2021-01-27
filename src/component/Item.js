@@ -22,6 +22,9 @@ import Typography from "@material-ui/core/Typography";
 import LocalMallOutlinedIcon from "@material-ui/icons/LocalMallOutlined";
 import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutlined";
 import HistoryOutlinedIcon from "@material-ui/icons/HistoryOutlined";
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 //redux
 import store from "../redux/store";
@@ -101,8 +104,24 @@ class Item extends Component {
       : null;
 
     return (
-      <Grid container>
-        <Grid container xs={12}>
+      <Grid container direction="column" alignItems="center">
+
+        <Grid container xs={12} md={10} style={{marginTop:20,marginBottom:30}}>
+            <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
+              <Link color="inherit" href="/" >
+                  Home
+              </Link>
+              <Link color="inherit" href={`/collection/${ourItem.store.split(" ").join("_")}`} >
+                  {ourItem.store}
+              </Link>
+              <Link color="inherit" href={`/type/${ourItem.type.split(" ").join("_")}`} >
+                  {ourItem.type}
+              </Link>
+              <Typography color="textPrimary">{ourItem.title}</Typography>
+            </Breadcrumbs>
+        </Grid>
+
+        <Grid container xs={12} md={10}>
           <Grid item md={6} xs={12}>
             <ItemImage  itemStore={ourItem.store} itemImages={ourItem.itemImagesUrl} />
           </Grid>
@@ -111,7 +130,7 @@ class Item extends Component {
               <Typography variant="body2" color="textPrimary">
                 ref: {ourItem.ref}{" "}
               </Typography>
-              <Typography variant="h3" color="textPrimary">
+              <Typography variant="h4" color="textPrimary">
                 {ourItem.title}
               </Typography>
               <Rating
@@ -255,19 +274,18 @@ class Item extends Component {
                     <Grid
                       container
                       xs={12}
-                      direction="row"
-                      alignItems="center"
+                      direction="column"
+                     // alignItems="center"
                       style={{ marginBottom: 30 }}
                     >
                       <Grid
                         container
-                        xs={4}
+                        xs={12}
+                        direction="row"
                         alignItems="center"
                         style={{ marginRight: 20 }}
                       >
-                        <Typography variant="h6" color="textPrimary">
-                          Size :{" "}
-                        </Typography>
+                        
                         <FormControl
                           variant="outlined"
                           className={classes.formControl}
@@ -275,6 +293,7 @@ class Item extends Component {
                           <Select
                             labelId="demo-simple-select-filled-label"
                             id="demo-simple-select-filled"
+                            label="Size"
                             value={this.state.size}
                             onChange={this.handleChangeSize}
                           >
@@ -294,9 +313,7 @@ class Item extends Component {
                         alignItems="center"
                         style={{ marginRight: 20 }}
                       >
-                        <Typography variant="h6" color="textPrimary">
-                          Q-ty :{" "}
-                        </Typography>
+                        
                         <div style={{ display: "flex" }}>
                           <Button
                             color="primary"

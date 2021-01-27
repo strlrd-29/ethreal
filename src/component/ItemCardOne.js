@@ -168,6 +168,7 @@ class ItemCardOne extends Component {
         )}
 
         <CardActionArea
+       
           component={Link}
           to={`/type/${type.split(" ").join("_")}/${title
             .split(" ")
@@ -221,7 +222,7 @@ class ItemCardOne extends Component {
               <Button
                 color="secondary"
                 variant="contained"
-                style={{ Zindex: 2, borderRadius: 0, maxHeight: 50 }}
+                style={{ Zindex: 3, borderRadius: 0, maxHeight: 50 }}
                 fullWidth
                 onClick={() => this.handleAdd(item)}
               >

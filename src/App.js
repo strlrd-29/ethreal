@@ -4,7 +4,7 @@ import Divider from "@material-ui/core/Divider";
 
 import axios from "axios";
 
-import ReactGa from 'react-ga';
+import ReactGa from "react-ga";
 import { Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
 
@@ -18,8 +18,11 @@ import jwtDecode from "jwt-decode";
 import AuthRoute from "./util/AuthRoute";
 import themeObject from "./util/theme";
 //redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout, getUserData } from "./redux/actions/userActions";
+// components admin
+import ScrollebarAdmin from "./component/admin/ScrollebarAdmin";
+
 //components
 import ScrolleBar from "./component/ScrolleBar";
 import Footer from "./component/Footer";
@@ -47,6 +50,7 @@ theme = responsiveFontSizes(theme);
 
 const App = () => {
   const dispatch = useDispatch();
+  const { adminNav } = useSelector((state) => state.user);
   const history = useHistory();
   useEffect(() => {
     const token = localStorage.FBIdToken;
@@ -60,17 +64,14 @@ const App = () => {
       }
     }
 
-   ReactGa.initialize('G-8RFM869L4K');
-      ReactGa.pageview('/');
-
+    ReactGa.initialize("G-8RFM869L4K");
+    ReactGa.pageview("/");
   }, [dispatch]);
 
-  
   return (
     <MuiThemeProvider theme={theme}>
-      <ScrolleBar />
-
       <div className="container">
+        {adminNav ? <ScrollebarAdmin /> : <ScrolleBar />}
         <Switch>
           <Route exact path="/" component={home} />
           <Route exact path="/collection/:title" component={Store} />
