@@ -5,7 +5,7 @@ import Divider from "@material-ui/core/Divider";
 import axios from "axios";
 
 import ReactGa from "react-ga";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, Link } from "react-router-dom";
 import "./App.css";
 
 import {
@@ -17,6 +17,11 @@ import jwtDecode from "jwt-decode";
 //util
 import AuthRoute from "./util/AuthRoute";
 import themeObject from "./util/theme";
+
+import AdminRoute from "./util/AdminRoute";
+
+import UserRoute from "./util/UserRoute";
+
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { logout, getUserData } from "./redux/actions/userActions";
@@ -43,11 +48,12 @@ import shop from "./pages/shop";
 import Signup from "./pages/signup";
 import login from "./pages/login";
 import admin from "./pages/admin";
-import AdminRoute from "./util/AdminRoute";
-import UserRoute from "./util/UserRoute";
 import { CLEAR_ERRORS, SET_ADMIN_NAV, UNSET_ADMIN_NAV } from "./redux/types";
 import commands from "./pages/commands";
 import website from "./pages/website";
+
+//mui stuff
+import Button from "@material-ui/core/Button";
 
 let theme = createMuiTheme(themeObject);
 theme = responsiveFontSizes(theme);
@@ -75,7 +81,24 @@ const App = () => {
   return (
     <MuiThemeProvider theme={theme}>
       <div className="container">
-        {adminNav ? <ScrollebarAdmin /> : <ScrolleBar />}
+        {adminNav ? (
+          <div style={{ padding: 0 }}>
+            <Button
+              style={{ fontSize: "2em", borderRadius: 0 }}
+              variant="contained"
+              color="primary"
+              component={Link}
+              onClick={(event) => {
+                event.preventDefault();
+                window.open("/");
+              }}
+            >
+              Ethereal
+            </Button>
+          </div>
+        ) : (
+          <ScrolleBar />
+        )}
         <Switch>
           <Route exact path="/" component={home} />
           <Route exact path="/collection/:title" component={Store} />
@@ -83,19 +106,16 @@ const App = () => {
           <Route exact path="/type/:type/:title" component={Item} />
           <Route exact path="/panel" component={Panel} />
           <UserRoute path="/user" component={user} />
-          <AdminRoute path="/admin" component={admin} />
-          <AdminRoute path="/admin/shop" component={shop} />
-          <AdminRoute path="/admin/commands" component={commands} />
-          <AdminRoute path="/admin/website" component={website} />
+
+          <AdminRoute exact path="/admin" component={shop} />
 
           <AuthRoute path="/signup" component={Signup} />
           <AuthRoute path="/login" component={login} />
         </Switch>
       </div>
       <Divider />
-      <Footer />
     </MuiThemeProvider>
   );
 };
-
+// <Footer />
 export default App;

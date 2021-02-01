@@ -1,12 +1,22 @@
 import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+
 import MobileStepper from "@material-ui/core/MobileStepper";
+//mui
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+
 import Typography from "@material-ui/core/Typography";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
+//icons
+import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 
 const AutoPlaySwipeableViews = SwipeableViews;
 
@@ -26,21 +36,25 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   img: {
-    height: 550,
+    height: 350,
     display: "block",
     width: "100%",
     overflow: "hidden",
-    maxHeight: 600,
-    zIndex:1,
-    objectFit: "contain",
+    maxHeight: 400,
+    zIndex: 1,
+    // objectFit: "contain",
   },
   typeName: {
     float: "left",
     position: "absolute",
-    top: 100,
+    display: "flex",
+    direction: "column",
+    justifyContent: "flex-start",
+    bottom: 0,
     left: 0,
-    padding: 20,
-    zIndex: 3,
+    right: 0,
+
+    zIndex: 4,
   },
   changeButton: {
     float: "left",
@@ -63,9 +77,27 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
   },
+
+  //list images
+
+  rootList: {
+    marginBottom: 10,
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
+    backgroundColor: theme.palette.background.paper,
+    zIndex: 4,
+  },
+  gridList: {
+    flexWrap: "nowrap",
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: "translateZ(0)",
+    zIndex: 4,
+  },
 }));
 
-function ItemImage(props) {
+function ItemImageEdit(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -86,17 +118,35 @@ function ItemImage(props) {
 
   return (
     <div className={classes.root}>
-     
-      <Box className={classes.typeName}>
-        <Typography
-          variant="body1"
-          color="textPrimary"
-          style={{ display: "inline-block", borderBottom: "4px #b100e8 solid" }}
-        >
-          {props.itemStore}
-        </Typography>
-      </Box>
+      <div className={classes.rootList}>
+        <GridList className={classes.gridList} cols={4} cellHeight={100}>
+          {props.itemImages.map((tile, index) => (
+            <GridListTile
+              key={tile}
+              step={index}
+              onClick={() => handleStepChange(index)}
+            >
+              <img src={tile} />
+            </GridListTile>
+          ))}
+        </GridList>
+      </div>
 
+      <Box className={classes.typeName}>
+        <Button
+          fullWidth
+          variant="contained"
+          size="large"
+          style={{
+            borderRadius: 0,
+            backgroundColor: "rgba(0,0,0,0.6)",
+            color: "white",
+          }}
+          startIcon={<AddAPhotoIcon />}
+        >
+          Add new image
+        </Button>
+      </Box>
       <AutoPlaySwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={activeStep}
@@ -149,4 +199,4 @@ function ItemImage(props) {
   );
 }
 
-export default ItemImage;
+export default ItemImageEdit;
