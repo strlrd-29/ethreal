@@ -5,6 +5,7 @@ import MobileStepper from "@material-ui/core/MobileStepper";
 //mui
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
 
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -17,6 +18,8 @@ import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
 //icons
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import ClearIcon from "@material-ui/icons/Clear";
 
 const AutoPlaySwipeableViews = SwipeableViews;
 
@@ -55,6 +58,18 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
 
     zIndex: 4,
+  },
+  typeNameDelete: {
+    float: "left",
+    position: "absolute",
+    display: "flex",
+    direction: "column",
+    justifyContent: "flex-start",
+
+    top: 110,
+    right: 0,
+
+    zIndex: 5,
   },
   changeButton: {
     float: "left",
@@ -102,8 +117,7 @@ function ItemImageEdit(props) {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const maxSteps = props.itemImages.length;
-
+  const maxSteps = props.itemImages?.length;
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -120,13 +134,40 @@ function ItemImageEdit(props) {
     <div className={classes.root}>
       <div className={classes.rootList}>
         <GridList className={classes.gridList} cols={4} cellHeight={100}>
-          {props.itemImages.map((tile, index) => (
+          {props.itemImages?.map((tile, index) => (
             <GridListTile
               key={tile}
               step={index}
               onClick={() => handleStepChange(index)}
+              style={{ cursor: "pointer" }}
             >
-              <img src={tile} />
+              <img src={tile} style={{ objectFit: "contain", width: "100%" }} />
+              <GridListTileBar
+                style={{
+                  height: "40%",
+                  top: 5,
+                  left: "57%",
+                  backgroundColor: "transparent",
+                }}
+                actionIcon={
+                  <IconButton
+                    variant="contained"
+                    size="medium"
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 40,
+                      bottom: 0,
+                      left: 0,
+                      borderRadius: 0,
+                      backgroundColor: "rgba(0,0,0,0.6)",
+                      color: "white",
+                    }}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                }
+              />
             </GridListTile>
           ))}
         </GridList>
@@ -147,16 +188,35 @@ function ItemImageEdit(props) {
           Add new image
         </Button>
       </Box>
+      <Box className={classes.typeNameDelete}>
+        <IconButton
+          variant="contained"
+          size="large"
+          style={{
+            borderRadius: 0,
+            backgroundColor: "rgba(0,0,0,0.6)",
+            color: "white",
+          }}
+          disabled={activeStep === maxSteps - 1}
+        >
+          <DeleteForeverIcon />
+        </IconButton>
+      </Box>
       <AutoPlaySwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents
       >
-        {props.itemImages.map((step, index) => (
+        {props.itemImages?.map((step, index) => (
           <div key={step}>
-            {Math.abs(activeStep - index) <= 2 ? (
-              <img className={classes.img} src={step} alt={step} />
+            {Math.abs(activeStep - index) <= maxSteps ? (
+              <img
+                className={classes.img}
+                src={step}
+                alt={step}
+                style={{ objectFit: "cover" }}
+              />
             ) : null}
           </div>
         ))}

@@ -1,6 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
+
+import { useSelector, useDispatch } from "react-redux";
+import { addItem } from "../../redux/actions/itemsActions";
+import noProgram from "../../image/noprogram.gif";
 
 //components
 import ItemImageEdit from "./ItemImageEdit";
@@ -32,8 +36,6 @@ import Typography from "@material-ui/core/Typography";
 import EditIcon from "@material-ui/icons/Edit";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import ClearIcon from "@material-ui/icons/Clear";
-import { useDispatch, useSelector } from "react-redux";
-import { editItem } from "../../redux/actions/itemsActions";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -47,11 +49,16 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  itemButton: {
+    marginRight: 20,
+    borderRadius: 0,
+    textTransform: "none",
+  },
 }));
 
-export default function EditItem(props) {
-  const classes = useStyles();
+export default function CreateItem(props) {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const { stores } = useSelector((state) => state);
   const { types } = useSelector((state) => state);
 
@@ -60,7 +67,7 @@ export default function EditItem(props) {
   const [itemTitle, setItemTitle] = React.useState("");
   const [Store, setStore] = React.useState("");
   const [CurrentTypes, setTypes] = React.useState([]);
-  const [type, setType] = React.useState("");
+  const [Type, setType] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [quantity, setQuantity] = React.useState(0);
   const [price, setPrice] = React.useState(0);
@@ -69,20 +76,8 @@ export default function EditItem(props) {
   const [checkedRestock, setCheckedRestock] = React.useState(false);
   const [checkedPromotion, setCheckedPromotion] = React.useState(false);
   const [poucentagePromotion, setPourcentagePromotion] = React.useState(0);
+
   const [alert, setAlert] = React.useState(false);
-  useEffect(() => {
-    setReference(props.itemData.ref);
-    setItemTitle(props.itemData.title);
-    setStore(props.itemData.store);
-    setType(props.itemData.type);
-    setDescription(props.itemData.description);
-    setQuantity(props.itemData.quantity);
-    setPrice(props.itemData.price);
-    setCheckedNew(props.itemData.new);
-    setCheckedPromotion(props.itemData.promotion);
-    setPourcentagePromotion(props.itemData.pourcentagePromotion);
-    setTypes(types?.filter((type) => type.store === props.itemData.store));
-  }, [props.itemData]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -94,9 +89,10 @@ export default function EditItem(props) {
 
   const handleChangeStore = (e) => {
     setStore(e.target.value);
-    const currentTypes = types?.filter((type) => type.store === e.target.value);
-    setTypes(currentTypes);
+    const CurrentTypes = types.filter((type) => type.store === e.target.value);
+    setTypes(CurrentTypes);
   };
+
   const handleChangeType = (e) => {
     setType(e.target.value);
   };
@@ -113,13 +109,12 @@ export default function EditItem(props) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (type === false) {
+    if (Type === false) {
       setAlert(true);
     } else {
       setOpen(false);
       setAlert(false);
-      const editedItem = {
-        type: type,
+      const newItem = {
         ref: reference,
         title: itemTitle,
         description: description,
@@ -130,7 +125,7 @@ export default function EditItem(props) {
         new: checkedNew,
         restock: checkedRestock,
       };
-      dispatch(editItem(props.itemData.itemId, editedItem));
+      dispatch(addItem(Type, newItem));
       setCheckedNew(false);
       setCheckedPromotion(false);
       setDescription("");
@@ -141,7 +136,6 @@ export default function EditItem(props) {
       setCheckedRestock(false);
       setPrice(0);
       setPourcentagePromotion(0);
-      setQuantity(0);
     }
   };
   if (poucentagePromotion < 0) {
@@ -150,24 +144,18 @@ export default function EditItem(props) {
   if (quantity < 0) {
     setQuantity(0);
   }
-
   return (
     <div>
       <Button
-        startIcon={<EditIcon />}
+        disableElevation
+        className={classes.itemButton}
+        value="1"
+        color="secondary"
+        variant="contained"
         onClick={handleClickOpen}
-        style={
-          props.cellSelected
-            ? {
-                marginRight: 20,
-                borderRadius: 0,
-                backgroundColor: "#0096c7",
-                color: "white",
-              }
-            : { display: "none" }
-        }
+        // onClick={this.handleClickItems}
       >
-        edit
+        create new items
       </Button>
 
       <Dialog
@@ -181,7 +169,7 @@ export default function EditItem(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container xs={12} justify="space-between">
-            <DialogTitle id="form-dialog-title">Edit Item Data</DialogTitle>
+            <DialogTitle id="form-dialog-title">Create new Item</DialogTitle>
             <IconButton
               aria-label="ignore"
               style={{ borderRadius: 0 }}
@@ -195,7 +183,7 @@ export default function EditItem(props) {
           <DialogContent style={{ borderRadius: 0 }}>
             <Grid container xs={12}>
               <Grid container xs={6}>
-                <ItemImageEdit itemImages={props.itemData.itemImagesUrl} />
+                <ItemImageEdit itemImages={[noProgram]} />
               </Grid>
 
               <Grid container xs={6} style={{ padding: 20 }}>
@@ -251,17 +239,21 @@ export default function EditItem(props) {
                     disabled={!Store}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={type}
+                    value={Type}
                     onChange={handleChangeType}
                     label="Type"
                     required
                     error={alert}
                   >
-                    {CurrentTypes?.map((type) => (
-                      <MenuItem value={type.title} key={type.typeId}>
-                        {type.title}
-                      </MenuItem>
-                    ))}
+                    {CurrentTypes.length > 0 ? (
+                      CurrentTypes.map((type) => (
+                        <MenuItem value={type.typeId} key={type.typeId}>
+                          {type.title}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <MenuItem value={false}>This store has no types</MenuItem>
+                    )}
                   </Select>
                 </FormControl>
                 <FormControl className={classes.formControl1}>
@@ -299,6 +291,7 @@ export default function EditItem(props) {
                     label="Price"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
+                    required
                   />
                 </FormControl>
                 <FormControlLabel
@@ -340,7 +333,6 @@ export default function EditItem(props) {
                     label="Pourcentage %"
                     value={poucentagePromotion}
                     onChange={(e) => setPourcentagePromotion(e.target.value)}
-                    required
                   />
                 </FormControl>
               </Grid>
@@ -355,7 +347,7 @@ export default function EditItem(props) {
                 variant="contained"
                 size="large"
               >
-                save changes
+                create item
               </Button>
             </Grid>
           </DialogActions>

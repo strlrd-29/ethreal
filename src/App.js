@@ -90,7 +90,7 @@ const App = () => {
               component={Link}
               onClick={(event) => {
                 event.preventDefault();
-                window.open("/");
+                history.push("/");
               }}
             >
               Ethereal

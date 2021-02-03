@@ -43,6 +43,7 @@ export const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         authenticatedAdmin: false,
+        adminNav: false,
       };
 
     case SET_UNAUTHONTIFICATED:
