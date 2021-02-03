@@ -1,14 +1,13 @@
-import { GET_COMMANDS, GET_ALL_COMMANDS, DELETE_COMMANDS } from "../types";
+import { GET_COMMANDS, GET_ALL_COMMANDS } from "../types";
 const initialState = [];
 
 export const commandsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_COMMANDS:
-      return [...state, action.payload];
+      return action.payload;
     case GET_ALL_COMMANDS:
-      return [...state, action.payload];
-    case DELETE_COMMANDS:
-      return [];
+      return action.payload;
+
     default:
       return state;
   }

@@ -66,7 +66,7 @@ const App = () => {
     const token = localStorage.FBIdToken;
     if (token) {
       const decodedToken = jwtDecode(token);
-      if (decodedToken.exp * 1000 < Date.now()) {
+      if (decodedToken.exp * 10000 < Date.now()) {
         dispatch(logout(history));
       } else {
         axios.defaults.headers.common["Authorization"] = token;

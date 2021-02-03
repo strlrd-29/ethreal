@@ -1,7 +1,5 @@
 import React from "react";
 
-import { useDispatch } from "react-redux";
-
 //mui
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -13,10 +11,11 @@ import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 
 //icons
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { deleteType } from "../../redux/actions/typesActions";
+import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
 
-export default function DeleteType(props) {
+import { useDispatch } from "react-redux";
+import { deleteCommand } from "../../redux/actions/commandsActions";
+export default function RefuseCommand(props) {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
 
@@ -27,15 +26,15 @@ export default function DeleteType(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleDelete = () => {
-    dispatch(deleteType(props.typeId));
+  const handleRefuse = () => {
     setOpen(false);
+    dispatch(deleteCommand(props.commandId));
   };
 
   return (
     <div>
       <Button
-        startIcon={<DeleteForeverIcon />}
+        startIcon={<CancelOutlinedIcon />}
         onClick={handleClickOpen}
         style={
           props.cellSelected
@@ -48,7 +47,7 @@ export default function DeleteType(props) {
             : { display: "none" }
         }
       >
-        delete
+        Refuse
       </Button>
       <Dialog
         open={open}
@@ -56,12 +55,14 @@ export default function DeleteType(props) {
         maxWidth="xs"
         aria-labelledby="draggable-dialog-title"
       >
-        <DialogTitle id="draggable-dialog-title">Delete Type</DialogTitle>
+        <DialogTitle id="draggable-dialog-title">
+          Refuse the Command
+        </DialogTitle>
         <Divider />
         <DialogContent>
           <DialogContentText>
-            if you delete the type you cant bring it back latter. are you sur
-            you want to delete this type ?
+            if you refuse the command you cant bring it back are you sur you
+            want to refuse the command ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -69,15 +70,12 @@ export default function DeleteType(props) {
             Cancel
           </Button>
           <Button
-            onClick={handleDelete}
+            onClick={handleRefuse}
             variant="contained"
-            style={{
-              borderRadius: 0,
-              backgroundColor: "#e63946",
-              color: "white",
-            }}
+            color="secondary"
+            style={{ borderRadius: 0 }}
           >
-            Delete
+            Refuse
           </Button>
         </DialogActions>
       </Dialog>

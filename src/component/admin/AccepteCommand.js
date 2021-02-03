@@ -1,7 +1,5 @@
 import React from "react";
 
-import { useDispatch } from "react-redux";
-
 //mui
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -13,13 +11,14 @@ import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 
 //icons
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { deleteType } from "../../redux/actions/typesActions";
+import CheckCircleOutlineOutlinedIcon from "@material-ui/icons/CheckCircleOutlineOutlined";
 
-export default function DeleteType(props) {
+import { useSelector, useDispatch } from "react-redux";
+import { acceptCommand } from "../../redux/actions/commandsActions";
+
+export default function AccepteCommand(props) {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -27,28 +26,28 @@ export default function DeleteType(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleDelete = () => {
-    dispatch(deleteType(props.typeId));
+  const handleAccept = () => {
     setOpen(false);
+    dispatch(acceptCommand(props.commandId));
   };
 
   return (
     <div>
       <Button
-        startIcon={<DeleteForeverIcon />}
+        startIcon={<CheckCircleOutlineOutlinedIcon />}
         onClick={handleClickOpen}
         style={
           props.cellSelected
             ? {
                 marginRight: 20,
                 borderRadius: 0,
-                backgroundColor: "#e01e37",
+                backgroundColor: "#0096c7",
                 color: "white",
               }
             : { display: "none" }
         }
       >
-        delete
+        Accepte
       </Button>
       <Dialog
         open={open}
@@ -56,12 +55,14 @@ export default function DeleteType(props) {
         maxWidth="xs"
         aria-labelledby="draggable-dialog-title"
       >
-        <DialogTitle id="draggable-dialog-title">Delete Type</DialogTitle>
+        <DialogTitle id="draggable-dialog-title">
+          Accepte the Command
+        </DialogTitle>
         <Divider />
         <DialogContent>
           <DialogContentText>
-            if you delete the type you cant bring it back latter. are you sur
-            you want to delete this type ?
+            i think you should call him first ! if you accepte the command it ll
+            apear on his profile
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -69,15 +70,12 @@ export default function DeleteType(props) {
             Cancel
           </Button>
           <Button
-            onClick={handleDelete}
+            onClick={handleAccept}
             variant="contained"
-            style={{
-              borderRadius: 0,
-              backgroundColor: "#e63946",
-              color: "white",
-            }}
+            color="secondary"
+            style={{ borderRadius: 0 }}
           >
-            Delete
+            Accepte
           </Button>
         </DialogActions>
       </Dialog>

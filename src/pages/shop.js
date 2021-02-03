@@ -10,7 +10,7 @@ import noprogram from "../image/noprogram.gif";
 import ItemsTab from "../component/admin/ItemsTab";
 import TypesTab from "../component/admin/TypesTab";
 import StoresTab from "../component/admin/StoresTab";
-
+import CommandTab from '../component/admin/CommandTab'
 //mui stuff
 import IconButton from "@material-ui/core/IconButton";
 
@@ -430,6 +430,7 @@ class shop extends Component {
             {this.state.shopValue == 3 ? <StoresTab /> : <p></p>}
             {this.state.shopValue == 4 ? <TypesTab /> : <p></p>}
             {this.state.shopValue == 5 ? <ItemsTab /> : <p></p>}
+            {this.state.shopValue == 6 ? <CommandTab /> : <p></p>}
           </Grid>
         </Grid>
       </Grid>

@@ -58,7 +58,10 @@ class TypesTab extends Component {
             typeData={this.state.selectedType}
           />
 
-          <DeleteType cellSelected={this.state.cellSelected} />
+          <DeleteType
+            cellSelected={this.state.cellSelected}
+            typeId={this.state.selectedType.typeId}
+          />
         </Grid>
         <Divider />
         <p style={{ marginTop: 10 }}></p>

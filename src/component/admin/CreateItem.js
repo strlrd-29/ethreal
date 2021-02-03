@@ -136,6 +136,7 @@ export default function CreateItem(props) {
       setCheckedRestock(false);
       setPrice(0);
       setPourcentagePromotion(0);
+      setQuantity(0);
     }
   };
   if (poucentagePromotion < 0) {
@@ -143,6 +144,9 @@ export default function CreateItem(props) {
   }
   if (quantity < 0) {
     setQuantity(0);
+  }
+  if (price < 0) {
+    setPrice(0);
   }
   return (
     <div>

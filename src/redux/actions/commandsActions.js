@@ -53,9 +53,22 @@ export const deleteCommand = (commandId) => (dispatch) => {
     .delete(`/commands/${commandId}/delete`)
     .then(() => {
       dispatch({ type: END_LOADING });
-      dispatch({ type: DELETE_COMMANDS });
+      dispatch(getAllCommands());
     })
     .catch(({ message }) => {
       dispatch({ type: SET_ERRORS, payload: message });
+    });
+};
+
+export const acceptCommand = (commandId) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post(`/commands/${commandId}/accepte`)
+    .then(() => {
+      dispatch({ type: END_LOADING });
+      dispatch(getAllCommands());
+    })
+    .catch((err) => {
+      dispatch({ type: SET_ERRORS, payload: err.message });
     });
 };
