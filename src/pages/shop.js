@@ -9,8 +9,13 @@ import noprogram from "../image/noprogram.gif";
 //admin component
 import ItemsTab from "../component/admin/ItemsTab";
 import TypesTab from "../component/admin/TypesTab";
+import Customers from "../component/admin/Customers";
+import DiscountTab from "../component/admin/DiscountTab";
+
 import StoresTab from "../component/admin/StoresTab";
-import CommandTab from '../component/admin/CommandTab'
+import Products from "../component/admin/Products";
+
+import CommandTab from "../component/admin/CommandTab";
 //mui stuff
 import IconButton from "@material-ui/core/IconButton";
 
@@ -23,17 +28,17 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 //icons
-import ReceiptIcon from "@material-ui/icons/Receipt";
+import ReceiptOutlinedIcon from "@material-ui/icons/ReceiptOutlined";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ColorLensIcon from "@material-ui/icons/ColorLens";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import StorefrontIcon from "@material-ui/icons/Storefront";
-import CategoryIcon from "@material-ui/icons/Category";
+import PeopleAltOutlinedIcon from "@material-ui/icons/PeopleAltOutlined";
 import LocalGroceryStoreIcon from "@material-ui/icons/LocalGroceryStore";
-import RoomIcon from "@material-ui/icons/Room";
-import PhoneIcon from "@material-ui/icons/Phone";
-import EmailIcon from "@material-ui/icons/Email";
+import TimelineIcon from "@material-ui/icons/Timeline";
+import SpeedIcon from "@material-ui/icons/Speed";
+import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import store from "../redux/store";
 import { SET_ADMIN_NAV, UNSET_ADMIN_NAV } from "../redux/types";
@@ -117,7 +122,7 @@ const styles = (theme) => ({
 class shop extends Component {
   state = {
     in: false,
-    shopValue: "5",
+    shopValue: "3",
     shopMenu: false,
   };
   componentDidMount() {
@@ -159,7 +164,7 @@ class shop extends Component {
     const { classes, admin } = this.props;
 
     return (
-      <Grid container direction="row" style={{ padding: "20px 0px 20px 0px" }}>
+      <Grid container direction="row" style={{ padding: "0px 0px 20px 0px" }}>
         <Grid
           item
           sm="auto"
@@ -205,7 +210,7 @@ class shop extends Component {
                     : { margin: "6 15 6 6", color: "#495057" }
                 }
               />
-              Stores checkout page
+              Products checkout page
             </Button>
             <Button
               style={
@@ -219,7 +224,7 @@ class shop extends Component {
               variant={this.state.shopValue == 4 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
-              <CategoryIcon
+              <PeopleAltOutlinedIcon
                 fontSize="medium"
                 style={
                   this.state.shopValue == 4
@@ -227,8 +232,10 @@ class shop extends Component {
                     : { margin: "6 15 6 6", color: "#495057" }
                 }
               />
-              Types checkout page
+              Customers page
             </Button>
+
+            <Divider />
             <Button
               style={
                 this.state.shopValue == 5
@@ -241,7 +248,7 @@ class shop extends Component {
               variant={this.state.shopValue == 5 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
-              <LocalGroceryStoreIcon
+              <ReceiptOutlinedIcon
                 fontSize="medium"
                 style={
                   this.state.shopValue == 5
@@ -249,7 +256,7 @@ class shop extends Component {
                     : { margin: "6 15 6 6", color: "#495057" }
                 }
               />
-              Items checkout page
+              Commands checkout page
             </Button>
             <Divider />
             <Button
@@ -264,7 +271,7 @@ class shop extends Component {
               variant={this.state.shopValue == 6 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
-              <ReceiptIcon
+              <TimelineIcon
                 fontSize="medium"
                 style={
                   this.state.shopValue == 6
@@ -272,7 +279,52 @@ class shop extends Component {
                     : { margin: "6 15 6 6", color: "#495057" }
                 }
               />
-              Commands checkout page
+              Analytics checkout page
+            </Button>
+            <Button
+              style={
+                this.state.shopValue == 7
+                  ? { color: "#b100e8" }
+                  : { color: "#495057" }
+              }
+              className={classes.longButton}
+              value="7"
+              color={this.state.shopValue == 7 ? "primary" : undefined}
+              variant={this.state.shopValue == 7 ? "text" : undefined}
+              onClick={this.handleClickShop}
+            >
+              <SpeedIcon
+                fontSize="medium"
+                style={
+                  this.state.shopValue == 7
+                    ? { margin: "6 15 6 6", color: "#b100e8" }
+                    : { margin: "6 15 6 6", color: "#495057" }
+                }
+              />
+              Marketing checkout page
+            </Button>
+            <Divider />
+            <Button
+              style={
+                this.state.shopValue == 8
+                  ? { color: "#b100e8" }
+                  : { color: "#495057" }
+              }
+              className={classes.longButton}
+              value="8"
+              color={this.state.shopValue == 8 ? "primary" : undefined}
+              variant={this.state.shopValue == 8 ? "text" : undefined}
+              onClick={this.handleClickShop}
+            >
+              <LocalOfferOutlinedIcon
+                fontSize="medium"
+                style={
+                  this.state.shopValue == 8
+                    ? { margin: "6 15 6 6", color: "#b100e8" }
+                    : { margin: "6 15 6 6", color: "#495057" }
+                }
+              />
+              Discount page
             </Button>
             <Divider />
             <Grid container direction="row">
@@ -345,7 +397,7 @@ class shop extends Component {
               variant={this.state.shopValue == 4 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
-              <CategoryIcon
+              <PeopleAltOutlinedIcon
                 fontSize="medium"
                 style={
                   this.state.shopValue == 4
@@ -354,6 +406,8 @@ class shop extends Component {
                 }
               />
             </IconButton>
+
+            <Divider />
             <IconButton
               aria-label="add item"
               style={{ borderRadius: 0 }}
@@ -361,7 +415,7 @@ class shop extends Component {
               variant={this.state.shopValue == 5 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
-              <LocalGroceryStoreIcon
+              <ReceiptOutlinedIcon
                 fontSize="medium"
                 style={
                   this.state.shopValue == 5
@@ -378,10 +432,43 @@ class shop extends Component {
               variant={this.state.shopValue == 6 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
-              <ReceiptIcon
+              <TimelineIcon
                 fontSize="medium"
                 style={
                   this.state.shopValue == 6
+                    ? { marginLeft: 2, color: "#b100e8" }
+                    : { marginLeft: 2, color: "#495057" }
+                }
+              />
+            </IconButton>
+            <IconButton
+              aria-label="add item"
+              style={{ borderRadius: 0 }}
+              value="7"
+              variant={this.state.shopValue == 7 ? "text" : undefined}
+              onClick={this.handleClickShop}
+            >
+              <SpeedIcon
+                fontSize="medium"
+                style={
+                  this.state.shopValue == 7
+                    ? { marginLeft: 2, color: "#b100e8" }
+                    : { marginLeft: 2, color: "#495057" }
+                }
+              />
+            </IconButton>
+            <Divider />
+            <IconButton
+              aria-label="add item"
+              style={{ borderRadius: 0 }}
+              value="8"
+              variant={this.state.shopValue == 8 ? "text" : undefined}
+              onClick={this.handleClickShop}
+            >
+              <LocalOfferOutlinedIcon
+                fontSize="medium"
+                style={
+                  this.state.shopValue == 8
                     ? { marginLeft: 2, color: "#b100e8" }
                     : { marginLeft: 2, color: "#495057" }
                 }
@@ -427,10 +514,13 @@ class shop extends Component {
           <Grid item xs={12}>
             {this.state.shopValue == 1 ? <h1>value1</h1> : <p></p>}
             {this.state.shopValue == 2 ? <h1>value2</h1> : <p></p>}
-            {this.state.shopValue == 3 ? <StoresTab /> : <p></p>}
-            {this.state.shopValue == 4 ? <TypesTab /> : <p></p>}
-            {this.state.shopValue == 5 ? <ItemsTab /> : <p></p>}
-            {this.state.shopValue == 6 ? <CommandTab /> : <p></p>}
+            {this.state.shopValue == 3 ? <Products /> : <p></p>}
+            {this.state.shopValue == 4 ? <Customers /> : <p></p>}
+
+            {this.state.shopValue == 5 ? <CommandTab /> : <p></p>}
+            {this.state.shopValue == 6 ? <h1>analytics</h1> : <p></p>}
+            {this.state.shopValue == 7 ? <h1>marketing</h1> : <p></p>}
+            {this.state.shopValue == 8 ? <DiscountTab /> : <p></p>}
           </Grid>
         </Grid>
       </Grid>

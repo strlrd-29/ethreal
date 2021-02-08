@@ -63,7 +63,7 @@ export const deleteCommand = (commandId) => (dispatch) => {
 export const acceptCommand = (commandId) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .post(`/commands/${commandId}/accepte`)
+    .get(`/commands/${commandId}/accepte`)
     .then(() => {
       dispatch({ type: END_LOADING });
       dispatch(getAllCommands());

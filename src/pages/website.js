@@ -21,8 +21,14 @@ import RoomIcon from "@material-ui/icons/Room";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import store from "../redux/store";
 import { SET_ADMIN_NAV, UNSET_ADMIN_NAV } from "../redux/types";
+
+import store from "../redux/store";
+import { banUser, getAllUsers } from "../redux/actions/usersActions";
+import {
+  addCodeDiscount,
+  getAllDiscounts,
+} from "../redux/actions/discountsActions";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -64,7 +70,7 @@ class website extends Component {
   render() {
     const { classes, admin } = this.props;
 
-    return <Grid container>website</Grid>;
+    return <Grid container></Grid>;
   }
 }
 

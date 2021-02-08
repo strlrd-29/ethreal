@@ -54,6 +54,7 @@ import website from "./pages/website";
 
 //mui stuff
 import Button from "@material-ui/core/Button";
+import OpenInNewOutlinedIcon from "@material-ui/icons/OpenInNewOutlined";
 
 let theme = createMuiTheme(themeObject);
 theme = responsiveFontSizes(theme);
@@ -66,14 +67,14 @@ const App = () => {
     const token = localStorage.FBIdToken;
     if (token) {
       const decodedToken = jwtDecode(token);
-      if (decodedToken.exp * 10000 < Date.now()) {
+      if (decodedToken.exp * 1000 < Date.now()) {
         dispatch(logout(history));
       } else {
         axios.defaults.headers.common["Authorization"] = token;
         dispatch(getUserData());
       }
     }
-
+    dispatch({ type: UNSET_ADMIN_NAV });
     ReactGa.initialize("G-8RFM869L4K");
     ReactGa.pageview("/");
   }, [dispatch]);
@@ -82,11 +83,18 @@ const App = () => {
     <MuiThemeProvider theme={theme}>
       <div className="container">
         {adminNav ? (
-          <div style={{ padding: 0 }}>
+          <div>
             <Button
-              style={{ fontSize: "2em", borderRadius: 0 }}
+              style={{
+                fontSize: "1em",
+                borderRadius: 0,
+                position: "absolute",
+                top: 10,
+                right: 10,
+              }}
               variant="contained"
               color="primary"
+              endIcon={<OpenInNewOutlinedIcon />}
               component={Link}
               onClick={(event) => {
                 event.preventDefault();
@@ -106,6 +114,7 @@ const App = () => {
           <Route exact path="/type/:type/:title" component={Item} />
           <Route exact path="/panel" component={Panel} />
           <UserRoute path="/user" component={user} />
+          <Route path="/website" component={website} />
 
           <AdminRoute exact path="/admin" component={shop} />
 

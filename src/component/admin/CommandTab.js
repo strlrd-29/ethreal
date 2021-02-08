@@ -23,16 +23,6 @@ import ClearIcon from "@material-ui/icons/Clear";
 import store from "../../redux/store";
 import { getAllCommands } from "../../redux/actions/commandsActions";
 
-const rowsItem = [
-  {
-    id: "1",
-    title: "healthy food recipe",
-    quantity: "20",
-    price: "1900",
-    total: "45000",
-  },
-];
-
 const styles = (theme) => ({
   ...theme.spreadThis,
   itemButton: {
@@ -46,53 +36,61 @@ class CommandTab extends Component {
     cellSelected: false,
     valueCommand: "1",
     itemInfo: false,
-    selectedCommand: "",
+    userInfo: false,
+    userInformations: [],
+    selectedCommand: [],
     itemsInformations: [],
-    acceptedCommands: "",
+    acceptedCommands: [],
     acceptedInformations: [],
   };
 
   handleClickCell = (e) => {
     this.setState({ cellSelected: true });
-    this.setState({ selectedCommand: e.row });
+    this.setState({ selectedCommand: [e.row] });
   };
   handleClickItemInfo = () => {
     this.setState({ itemInfo: !this.state.itemInfo });
     if (this.state.valueCommand === "1") {
-      let index = this.state.selectedCommand.titles?.length;
+      let index = this.state.selectedCommand[0].titles?.length;
       let items = [];
       for (let i = 0; i < index; i++) {
         items.push({
-          title: this.state.selectedCommand.titles[i],
-          quantity: this.state.selectedCommand.quantities[i],
-          price: this.state.selectedCommand.prices[i],
-          id: this.state.selectedCommand.itemsId[i],
+          title: this.state.selectedCommand[0].titles[i],
+          quantity: this.state.selectedCommand[0].quantities[i],
+          price: this.state.selectedCommand[0].prices[i],
+          id: this.state.selectedCommand[0].itemsId[i],
           total:
-            this.state.selectedCommand.quantities[i] *
-            this.state.selectedCommand.prices[i],
+            this.state.selectedCommand[0].quantities[i] *
+            this.state.selectedCommand[0].prices[i],
         });
       }
+
       this.setState({ itemsInformations: items });
     }
     if (this.state.valueCommand === "2") {
-      let index = this.state.selectedCommand.titles.length;
-      let items = [];
+      let index = this.state.selectedCommand[0].titles?.length;
+      let item = [];
       for (let i = 0; i < index; i++) {
-        items.push({
-          title: this.state.selectedCommand.titles[i],
-          quantity: this.state.selectedCommand.quantities[i],
-          price: this.state.selectedCommand.prices[i],
-          id: this.state.selectedCommand.itemsId[i],
+        item.push({
+          title: this.state.selectedCommand[0].titles[i],
+          quantity: this.state.selectedCommand[0].quantities[i],
+          price: this.state.selectedCommand[0].prices[i],
+          id: this.state.selectedCommand[0].itemsId[i],
           total:
-            this.state.selectedCommand.quantities[i] *
-            this.state.selectedCommand.prices[i],
+            this.state.selectedCommand[0].quantities[i] *
+            this.state.selectedCommand[0].prices[i],
         });
       }
-      this.setState({ acceptedInformations: items });
+      this.setState({ acceptedInformations: item });
     }
   };
+
+  handleClickUserInfo = (e) => {
+    this.setState({ userInfo: !this.state.userInfo });
+  };
   handleClickCommand = (e) => {
-    if (this.state.cellSelected) this.setState({ cellSelected: false });
+    if (this.state.cellSelected || this.state.itemInfo || this.state.userInfo)
+      this.setState({ cellSelected: false, itemInfo: false, userInfo: false });
 
     this.setState({ valueCommand: e.currentTarget.value });
   };
@@ -107,6 +105,12 @@ class CommandTab extends Component {
     return (
       <Grid container xs={12}>
         <div style={{ height: 250, width: "100%" }}>
+          <Grid container xs={12} direction="row" style={{ paddingBottom: 20 }}>
+            <Typography variant="h3" color="textSecondary">
+              Commands
+            </Typography>
+          </Grid>
+
           <Grid container xs={12} direction="row" style={{ paddingBottom: 20 }}>
             <Button
               className={classes.itemButton}
@@ -133,11 +137,11 @@ class CommandTab extends Component {
           <Grid container xs={12} direction="row">
             <AccepteCommand
               cellSelected={this.state.cellSelected}
-              commandId={this.state.selectedCommand.id}
+              commandId={this.state?.selectedCommand[0]?.id}
             />
             <RefuseCommand
               cellSelected={this.state.cellSelected}
-              commandId={this.state.selectedCommand.id}
+              commandId={this.state?.selectedCommand[0]?.id}
             />
           </Grid>
 
@@ -147,19 +151,62 @@ class CommandTab extends Component {
             <Grid container xs={12} style={{ height: "100%" }}>
               <Grid
                 container
-                xs={this.state.itemInfo ? 7 : 12}
+                xs={this.state.itemInfo ? 2 : 4}
                 style={{ height: "100%" }}
                 direction="column"
               >
                 <Typography variant="h6" style={{ marginBottom: 10 }}>
-                  Users Informations
+                  Customers commands
                 </Typography>
 
                 <DataGrid
-                  onRowClick={this.handleClickCell}
+                  onRowClick={(e) => {
+                    this.handleClickCell(e);
+                    this.handleClickItemInfo();
+                    this.handleClickUserInfo();
+                  }}
                   columns={[
                     { field: "id", width: 70 },
-                    { field: "accepted" },
+                    { field: "accepted", width: 120 },
+                    { field: "nom" },
+                    { field: "prenom", width: 120 },
+                  ]}
+                  rows={commands}
+                />
+              </Grid>
+
+              <Grid
+                container
+                xs={5}
+                style={
+                  this.state.userInfo
+                    ? { paddingLeft: 10, height: "100%" }
+                    : { display: "none" }
+                }
+                direction="column"
+                justify="flex-start"
+              >
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="flex-start"
+                >
+                  <Typography variant="h6" style={{ marginBottom: 10 }}>
+                    Customer personal Informations
+                  </Typography>
+                  <IconButton
+                    aria-label="ignore"
+                    size="small"
+                    style={{ borderRadius: 0 }}
+                    onClick={this.handleClickUserInfo}
+                  >
+                    <ClearIcon style={{ fontSize: "1.6em" }} />
+                  </IconButton>
+                </Grid>
+
+                <DataGrid
+                  columns={[
                     { field: "nom" },
                     { field: "prenom" },
                     { field: "email", width: 220 },
@@ -167,26 +214,10 @@ class CommandTab extends Component {
                     { field: "adress", width: 220 },
                     { field: "city" },
                     { field: "wilaya" },
-                    {
-                      field: "items",
-                      renderCell: (params) => (
-                        <strong>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            size="small"
-                            onClick={this.handleClickItemInfo}
-                          >
-                            View
-                          </Button>
-                        </strong>
-                      ),
-                    },
                   ]}
-                  rows={commands}
+                  rows={this.state?.selectedCommand}
                 />
               </Grid>
-
               <Grid
                 container
                 xs={5}
@@ -205,7 +236,7 @@ class CommandTab extends Component {
                   alignItems="flex-start"
                 >
                   <Typography variant="h6" style={{ marginBottom: 10 }}>
-                    Items Informations
+                    Customer Items Informations
                   </Typography>
                   <IconButton
                     aria-label="ignore"
@@ -219,13 +250,12 @@ class CommandTab extends Component {
 
                 <DataGrid
                   columns={[
-                    { field: "id", width: 70 },
                     { field: "title", width: 220 },
                     { field: "quantity", width: 120 },
                     { field: "price" },
                     { field: "total" },
                   ]}
-                  rows={this.state.itemsInformations}
+                  rows={this?.state?.itemsInformations}
                 />
               </Grid>
             </Grid>
@@ -236,19 +266,62 @@ class CommandTab extends Component {
             <Grid container xs={12} style={{ height: "100%" }}>
               <Grid
                 container
-                xs={this.state.itemInfo ? 7 : 12}
+                xs={this.state.itemInfo ? 2 : 4}
                 style={{ height: "100%" }}
                 direction="column"
               >
                 <Typography variant="h6" style={{ marginBottom: 10 }}>
-                  Users Informations
+                  Customers commands
                 </Typography>
 
                 <DataGrid
-                  onRowClick={this.handleClickCell}
+                  onRowClick={(e) => {
+                    this.handleClickCell(e);
+                    this.handleClickItemInfo();
+                    this.handleClickUserInfo();
+                  }}
                   columns={[
                     { field: "id", width: 70 },
-                    { field: "accepted" },
+                    { field: "accepted", width: 120 },
+                    { field: "nom" },
+                    { field: "prenom", width: 120 },
+                  ]}
+                  rows={this.state?.acceptedCommands}
+                />
+              </Grid>
+
+              <Grid
+                container
+                xs={5}
+                style={
+                  this.state.userInfo
+                    ? { paddingLeft: 10, height: "100%" }
+                    : { display: "none" }
+                }
+                direction="column"
+                justify="flex-start"
+              >
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="flex-start"
+                >
+                  <Typography variant="h6" style={{ marginBottom: 10 }}>
+                    Customer personal Informations
+                  </Typography>
+                  <IconButton
+                    aria-label="ignore"
+                    size="small"
+                    style={{ borderRadius: 0 }}
+                    onClick={this.handleClickUserInfo}
+                  >
+                    <ClearIcon style={{ fontSize: "1.6em" }} />
+                  </IconButton>
+                </Grid>
+
+                <DataGrid
+                  columns={[
                     { field: "nom" },
                     { field: "prenom" },
                     { field: "email", width: 220 },
@@ -256,26 +329,10 @@ class CommandTab extends Component {
                     { field: "adress", width: 220 },
                     { field: "city" },
                     { field: "wilaya" },
-                    {
-                      field: "items",
-                      renderCell: (params) => (
-                        <strong>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            size="small"
-                            onClick={this.handleClickItemInfo}
-                          >
-                            View
-                          </Button>
-                        </strong>
-                      ),
-                    },
                   ]}
-                  rows={this.state.acceptedCommands}
+                  rows={this.state?.selectedCommand}
                 />
               </Grid>
-
               <Grid
                 container
                 xs={5}
@@ -294,7 +351,7 @@ class CommandTab extends Component {
                   alignItems="flex-start"
                 >
                   <Typography variant="h6" style={{ marginBottom: 10 }}>
-                    Items Informations
+                    Customer Items Informations
                   </Typography>
                   <IconButton
                     aria-label="ignore"
@@ -308,13 +365,12 @@ class CommandTab extends Component {
 
                 <DataGrid
                   columns={[
-                    { field: "id", width: 70 },
                     { field: "title", width: 220 },
                     { field: "quantity", width: 120 },
                     { field: "price" },
                     { field: "total" },
                   ]}
-                  rows={this.state.acceptedInformations}
+                  rows={this.state?.acceptedInformations}
                 />
               </Grid>
             </Grid>
