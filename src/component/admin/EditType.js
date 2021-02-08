@@ -115,19 +115,16 @@ export default function EditType(props) {
       store: Store,
     };
     dispatch(editType(props.typeData.typeId, editedType));
-    if (ui.errors) {
-      alert("Please retry later we are having some problem");
-    } else {
-      setOpen(false);
-      setCheckedNew(false);
-      setCheckedPromotion(false);
-      setTypeDescription("");
-      setReference("");
-      setTypeTitle("");
-      setStore("");
-      setCheckedRestock(false);
-      setPourcentagePromotion(0);
-    }
+
+    setOpen(false);
+    setCheckedNew(false);
+    setCheckedPromotion(false);
+    setTypeDescription("");
+    setReference("");
+    setTypeTitle("");
+    setStore("");
+    setCheckedRestock(false);
+    setPourcentagePromotion(0);
   };
 
   if (pourcentagePromotion < 0) {

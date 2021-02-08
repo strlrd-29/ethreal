@@ -107,18 +107,15 @@ export default function EditType(props) {
       pourcentagePromotion: parseFloat(pourcentagePromotion),
     };
     dispatch(editStore(props.storeData.storeId, editedStore));
-    if (ui.errors) {
-      alert("error");
-    } else {
-      setOpen(false);
-      setStoreTitle("");
-      setStoreDescription("");
-      setReference("");
-      setCheckedRestock(false);
-      setCheckedPromotion(false);
-      setCheckedNew(false);
-      setPourcentagePromotion(0);
-    }
+
+    setOpen(false);
+    setStoreTitle("");
+    setStoreDescription("");
+    setReference("");
+    setCheckedRestock(false);
+    setCheckedPromotion(false);
+    setCheckedNew(false);
+    setPourcentagePromotion(0);
   };
 
   if (pourcentagePromotion < 0) {
