@@ -85,7 +85,7 @@ class Signup extends Component {
       classes,
       ui: { loading },
     } = this.props;
-    const { errors, condition } = this.state;
+    const { errors } = this.state;
 
     return (
       <Grid container className="sign">

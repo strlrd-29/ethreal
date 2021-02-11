@@ -2,7 +2,6 @@ import { React, Component } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 //component
 
@@ -10,18 +9,11 @@ import CreateStore from "./CreateStore";
 import EditStore from "./EditStore";
 import DeleteStore from "./DeleteStore";
 //mui stuff
-import IconButton from "@material-ui/core/IconButton";
 
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+
 //icons
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -44,7 +36,7 @@ class StoresTab extends Component {
     this.setState({ cellSelected: false });
   }
   render() {
-    const { classes, stores } = this.props;
+    const { stores } = this.props;
     const newStores = stores.map((store) => ({ ...store, id: store.storeId }));
     return (
       <div style={{ height: 250, width: "100%" }}>

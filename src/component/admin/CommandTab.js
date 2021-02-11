@@ -2,7 +2,6 @@ import { React, Component } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 //component
 import AccepteCommand from "./AccepteCommand";
@@ -12,9 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 //icons
@@ -115,8 +112,8 @@ class CommandTab extends Component {
             <Button
               className={classes.itemButton}
               value="1"
-              color={this.state.valueCommand == 1 ? "secondary" : undefined}
-              variant={this.state.valueCommand == 1 ? "outlined" : undefined}
+              color={this.state.valueCommand === 1 ? "secondary" : undefined}
+              variant={this.state.valueCommand === 1 ? "outlined" : undefined}
               onClick={this.handleClickCommand}
             >
               New Commands
@@ -124,8 +121,8 @@ class CommandTab extends Component {
             <Button
               className={classes.itemButton}
               value="2"
-              color={this.state.valueCommand == 2 ? "secondary" : undefined}
-              variant={this.state.valueCommand == 2 ? "outlined" : undefined}
+              color={this.state.valueCommand === 2 ? "secondary" : undefined}
+              variant={this.state.valueCommand === 2 ? "outlined" : undefined}
               onClick={this.handleClickCommand}
             >
               Accepted Commands
@@ -147,7 +144,7 @@ class CommandTab extends Component {
 
           <p style={{ marginTop: 10 }}></p>
 
-          {this.state.valueCommand == 1 ? (
+          {this.state.valueCommand === 1 ? (
             <Grid container xs={12} style={{ height: "100%" }}>
               <Grid
                 container
@@ -262,7 +259,7 @@ class CommandTab extends Component {
           ) : (
             <p></p>
           )}
-          {this.state.valueCommand == 2 ? (
+          {this.state.valueCommand === 2 ? (
             <Grid container xs={12} style={{ height: "100%" }}>
               <Grid
                 container

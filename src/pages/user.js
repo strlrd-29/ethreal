@@ -10,7 +10,6 @@ import noprogram from "../image/noprogram.gif";
 
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
@@ -42,7 +41,7 @@ const styles = (theme) => ({
   editButton: {
     //width: "90%",
     height: 50,
-    margin:20
+    margin: 20,
   },
   title: {
     width: "100%",
@@ -131,85 +130,83 @@ class user extends Component {
       </CardContent>
     );
     return (
-      <Grid container style={{padding:20}} >
-        <Grid item sm={6} xs={12} style={{ padding: 20 , backgroundColor: "#f5f3f4"}}>
-          
+      <Grid container style={{ padding: 20 }}>
+        <Grid
+          item
+          sm={6}
+          xs={12}
+          style={{ padding: 20, backgroundColor: "#f5f3f4" }}
+        >
+          <Typography
+            className={classes.title}
+            variant="h5"
+            color="textPrimary"
+          >
+            User information
+          </Typography>
+
+          <Divider />
+          <CardContent>
             <Typography
-              className={classes.title}
-              variant="h5"
-              color="textPrimary"
+              className={classes.info}
+              variant="body1"
+              color="textSecondary"
             >
-              User information
+              <EmailIcon /> : {user?.nom} {user?.prenom}
+            </Typography>
+            <Typography
+              className={classes.info}
+              variant="body1"
+              color="textSecondary"
+            >
+              <EmailIcon /> : {user?.email}
+            </Typography>
+            <Typography
+              className={classes.info}
+              variant="body1"
+              color="textSecondary"
+            >
+              <PhoneIcon /> : {user?.phone}{" "}
             </Typography>
 
-            <Divider />
-            <CardContent>
-              <Typography
-                className={classes.info}
-                variant="body1"
-                color="textSecondary"
-              >
-                <EmailIcon /> : {user?.nom} {user?.prenom}
-              </Typography>
-              <Typography
-                className={classes.info}
-                variant="body1"
-                color="textSecondary"
-              >
-                <EmailIcon /> : {user?.email}
-              </Typography>
-              <Typography
-                className={classes.info}
-                variant="body1"
-                color="textSecondary"
-              >
-                <PhoneIcon /> : {user?.phone}{" "}
-              </Typography>
-
-              <Typography
-                className={classes.info}
-                variant="body1"
-                color="textSecondary"
-              >
-                <RoomIcon /> : {user?.wilaya} {user?.city}
-              </Typography>
-              <Typography
-                className={classes.info}
-                variant="body1"
-                color="textSecondary"
-              >
-                <RoomIcon /> : {user?.adress}
-              </Typography>
-            </CardContent>
-
-            
-            <Button
-              className={classes.editButton}
-              variant="contained"
-              style={{ backgroundColor: "#f94144", color: "#fff" }}
-              endIcon={<ExitToAppIcon />}
-              onClick={this.handleLogout}
+            <Typography
+              className={classes.info}
+              variant="body1"
+              color="textSecondary"
             >
-              LOGOUT
-            </Button>
-            
+              <RoomIcon /> : {user?.wilaya} {user?.city}
+            </Typography>
+            <Typography
+              className={classes.info}
+              variant="body1"
+              color="textSecondary"
+            >
+              <RoomIcon /> : {user?.adress}
+            </Typography>
+          </CardContent>
+
+          <Button
+            className={classes.editButton}
+            variant="contained"
+            style={{ backgroundColor: "#f94144", color: "#fff" }}
+            endIcon={<ExitToAppIcon />}
+            onClick={this.handleLogout}
+          >
+            LOGOUT
+          </Button>
         </Grid>
 
         <Grid item sm={6} xs={12} style={{ padding: 20 }}>
-          
-            <Typography
-              className={classes.title}
-              variant="h5"
-              color="textPrimary"
-            >
-              Commands information
-            </Typography>
-            <Divider />
-            {allMyParcours}
-           
-          
+          <Typography
+            className={classes.title}
+            variant="h5"
+            color="textPrimary"
+          >
+            Commands information
+          </Typography>
+          <Divider />
+          {allMyParcours}
         </Grid>
-       
       </Grid>
     );
   }

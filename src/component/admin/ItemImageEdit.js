@@ -8,9 +8,7 @@ import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 
-import Typography from "@material-ui/core/Typography";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
@@ -141,7 +139,11 @@ function ItemImageEdit(props) {
               onClick={() => handleStepChange(index)}
               style={{ cursor: "pointer" }}
             >
-              <img src={tile} style={{ objectFit: "contain", width: "100%" }} />
+              <img
+                src={tile}
+                style={{ objectFit: "contain", width: "100%" }}
+                alt="image"
+              />
               <GridListTileBar
                 style={{
                   height: "40%",

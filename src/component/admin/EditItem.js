@@ -11,7 +11,6 @@ import Divider from "@material-ui/core/Divider";
 
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
@@ -19,18 +18,13 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
 
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
+
 //icons
 import EditIcon from "@material-ui/icons/Edit";
-import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import ClearIcon from "@material-ui/icons/Clear";
 import { useDispatch, useSelector } from "react-redux";
 import { editItem } from "../../redux/actions/itemsActions";
@@ -82,7 +76,7 @@ export default function EditItem(props) {
     setCheckedPromotion(props.itemData.promotion);
     setPourcentagePromotion(props.itemData.pourcentagePromotion);
     setTypes(types?.filter((type) => type.store === props.itemData.store));
-  }, [props.itemData]);
+  }, [props.itemData, types]);
 
   const handleClickOpen = () => {
     setOpen(true);

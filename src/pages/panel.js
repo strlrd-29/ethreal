@@ -57,8 +57,10 @@ const Cart = ({ classes }) => {
           });
           dispatch(makeCommand(command));
           dispatch(clearAllCart());
+          return cart;
         } else {
           setCartError(true);
+          return cart;
         }
       } else {
         history.push("/login");
@@ -75,7 +77,7 @@ const Cart = ({ classes }) => {
       : item.quantity * item.item.price;
   });
   let allItems =
-    cart.length != 0 ? (
+    cart.length !== 0 ? (
       cart.map((post) => {
         return (
           <Grid item xs={12}>

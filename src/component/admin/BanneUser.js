@@ -9,13 +9,11 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 
 //icons
-import SyncDisabledSharpIcon from '@material-ui/icons/SyncDisabledSharp';
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { deleteItem } from "../../redux/actions/itemsActions";
+import SyncDisabledSharpIcon from "@material-ui/icons/SyncDisabledSharp";
+import { banUser } from "../../redux/actions/usersActions";
 
 export default function BanneUser(props) {
   const [open, setOpen] = React.useState(false);
@@ -29,8 +27,7 @@ export default function BanneUser(props) {
   };
   const handleDelete = () => {
     setOpen(false);
-    // banne user func
-   // dispatch(deleteItem(props.itemId));
+    dispatch(banUser(props.userHandle));
   };
   return (
     <div>
@@ -48,7 +45,7 @@ export default function BanneUser(props) {
             : { display: "none" }
         }
       >
-        Banne 
+        Ban user
       </Button>
       <Dialog
         open={open}

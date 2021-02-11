@@ -1,6 +1,5 @@
 import axios from "axios";
 import {
-  DELETE_COMMANDS,
   END_LOADING,
   GET_ALL_COMMANDS,
   GET_COMMANDS,

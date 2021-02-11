@@ -12,13 +12,8 @@ import Search from "../Search";
 //MUI stuff
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import Badge from "@material-ui/core/Badge";
 
 //icons mui
-import PermIdentityIcon from "@material-ui/icons/PermIdentity";
-import ShoppingBasketOutlinedIcon from "@material-ui/icons/ShoppingBasketOutlined";
-
-import IconButton from "@material-ui/core/IconButton";
 
 import Grid from "@material-ui/core/Grid";
 
@@ -90,7 +85,7 @@ class NavbarAdmin extends Component {
   };
 
   render() {
-    const { classes, stores, types, authenticated, cart } = this.props;
+    const { classes } = this.props;
 
     return (
       <div>
@@ -218,11 +213,6 @@ class NavbarAdmin extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  stores: state.stores,
-  types: state.types,
-  user: state.user,
-  cart: state.cart,
-});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps)(withStyles(styles)(NavbarAdmin));

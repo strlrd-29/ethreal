@@ -1,18 +1,14 @@
 import React, { Component } from "react";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logout } from "../redux/actions/userActions";
-import noprogram from "../image/noprogram.gif";
 
 //admin component
-import ItemsTab from "../component/admin/ItemsTab";
-import TypesTab from "../component/admin/TypesTab";
+
 import Customers from "../component/admin/Customers";
 import DiscountTab from "../component/admin/DiscountTab";
 
-import StoresTab from "../component/admin/StoresTab";
 import Products from "../component/admin/Products";
 
 import CommandTab from "../component/admin/CommandTab";
@@ -21,10 +17,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
+
 import Button from "@material-ui/core/Button";
 
 //icons
@@ -35,13 +28,12 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import PeopleAltOutlinedIcon from "@material-ui/icons/PeopleAltOutlined";
-import LocalGroceryStoreIcon from "@material-ui/icons/LocalGroceryStore";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import SpeedIcon from "@material-ui/icons/Speed";
 import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import store from "../redux/store";
 import { SET_ADMIN_NAV, UNSET_ADMIN_NAV } from "../redux/types";
+import { getAllUsers } from "../redux/actions/usersActions";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -127,9 +119,11 @@ class shop extends Component {
   };
   componentDidMount() {
     window.scrollTo(0, 0);
-  }
-  componentDidMount() {
     store.dispatch({ type: SET_ADMIN_NAV });
+  }
+
+  componentDidMount() {
+    store.dispatch(getAllUsers());
   }
   componentWillUnmount() {
     store.dispatch({ type: UNSET_ADMIN_NAV });
@@ -198,14 +192,14 @@ class shop extends Component {
               }
               className={classes.longButton}
               value="3"
-              color={this.state.shopValue == 3 ? "primary" : undefined}
-              variant={this.state.shopValue == 3 ? "text" : undefined}
+              color={this.state.shopValue === 3 ? "primary" : undefined}
+              variant={this.state.shopValue === 3 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <StorefrontIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 3
+                  this.state.shopValue === 3
                     ? { margin: "6 15 6 6", color: "#b100e8" }
                     : { margin: "6 15 6 6", color: "#495057" }
                 }
@@ -214,20 +208,20 @@ class shop extends Component {
             </Button>
             <Button
               style={
-                this.state.shopValue == 4
+                this.state.shopValue === 4
                   ? { color: "#b100e8" }
                   : { color: "#495057" }
               }
               className={classes.longButton}
               value="4"
-              color={this.state.shopValue == 4 ? "primary" : undefined}
-              variant={this.state.shopValue == 4 ? "text" : undefined}
+              color={this.state.shopValue === 4 ? "primary" : undefined}
+              variant={this.state.shopValue === 4 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <PeopleAltOutlinedIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 4
+                  this.state.shopValue === 4
                     ? { margin: "6 15 6 6", color: "#b100e8" }
                     : { margin: "6 15 6 6", color: "#495057" }
                 }
@@ -238,20 +232,20 @@ class shop extends Component {
             <Divider />
             <Button
               style={
-                this.state.shopValue == 5
+                this.state.shopValue === 5
                   ? { color: "#b100e8" }
                   : { color: "#495057" }
               }
               className={classes.longButton}
               value="5"
-              color={this.state.shopValue == 5 ? "primary" : undefined}
-              variant={this.state.shopValue == 5 ? "text" : undefined}
+              color={this.state.shopValue === 5 ? "primary" : undefined}
+              variant={this.state.shopValue === 5 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <ReceiptOutlinedIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 5
+                  this.state.shopValue === 5
                     ? { margin: "6 15 6 6", color: "#b100e8" }
                     : { margin: "6 15 6 6", color: "#495057" }
                 }
@@ -261,20 +255,20 @@ class shop extends Component {
             <Divider />
             <Button
               style={
-                this.state.shopValue == 6
+                this.state.shopValue === 6
                   ? { color: "#b100e8" }
                   : { color: "#495057" }
               }
               className={classes.longButton}
               value="6"
-              color={this.state.shopValue == 6 ? "primary" : undefined}
-              variant={this.state.shopValue == 6 ? "text" : undefined}
+              color={this.state.shopValue === 6 ? "primary" : undefined}
+              variant={this.state.shopValue === 6 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <TimelineIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 6
+                  this.state.shopValue === 6
                     ? { margin: "6 15 6 6", color: "#b100e8" }
                     : { margin: "6 15 6 6", color: "#495057" }
                 }
@@ -283,20 +277,20 @@ class shop extends Component {
             </Button>
             <Button
               style={
-                this.state.shopValue == 7
+                this.state.shopValue === 7
                   ? { color: "#b100e8" }
                   : { color: "#495057" }
               }
               className={classes.longButton}
               value="7"
-              color={this.state.shopValue == 7 ? "primary" : undefined}
-              variant={this.state.shopValue == 7 ? "text" : undefined}
+              color={this.state.shopValue === 7 ? "primary" : undefined}
+              variant={this.state.shopValue === 7 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <SpeedIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 7
+                  this.state.shopValue === 7
                     ? { margin: "6 15 6 6", color: "#b100e8" }
                     : { margin: "6 15 6 6", color: "#495057" }
                 }
@@ -306,20 +300,20 @@ class shop extends Component {
             <Divider />
             <Button
               style={
-                this.state.shopValue == 8
+                this.state.shopValue === 8
                   ? { color: "#b100e8" }
                   : { color: "#495057" }
               }
               className={classes.longButton}
               value="8"
-              color={this.state.shopValue == 8 ? "primary" : undefined}
-              variant={this.state.shopValue == 8 ? "text" : undefined}
+              color={this.state.shopValue === 8 ? "primary" : undefined}
+              variant={this.state.shopValue === 8 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <LocalOfferOutlinedIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 8
+                  this.state.shopValue === 8
                     ? { margin: "6 15 6 6", color: "#b100e8" }
                     : { margin: "6 15 6 6", color: "#495057" }
                 }
@@ -330,20 +324,20 @@ class shop extends Component {
             <Grid container direction="row">
               <Button
                 style={
-                  this.state.shopValue == 2
+                  this.state.shopValue === 2
                     ? { color: "#b100e8" }
                     : { color: "#495057" }
                 }
                 className={classes.longButton}
                 value="2"
-                color={this.state.shopValue == 2 ? "primary" : undefined}
-                variant={this.state.shopValue == 2 ? "text" : undefined}
+                color={this.state.shopValue === 2 ? "primary" : undefined}
+                variant={this.state.shopValue === 2 ? "text" : undefined}
                 onClick={this.handleClickShop}
               >
                 <ColorLensIcon
                   fontSize="medium"
                   style={
-                    this.state.shopValue == 2
+                    this.state.shopValue === 2
                       ? { margin: "6 15 6 6", color: "#b100e8" }
                       : { margin: "6 15 6 6", color: "#495057" }
                   }
@@ -354,13 +348,13 @@ class shop extends Component {
                 aria-label="admin"
                 style={{ borderRadius: 0 }}
                 value="1"
-                variant={this.state.shopValue == 1 ? "text" : undefined}
+                variant={this.state.shopValue === 1 ? "text" : undefined}
                 onClick={this.handleClickShop}
               >
                 <SettingsIcon
                   fontSize="medium"
                   style={
-                    this.state.shopValue == 1
+                    this.state.shopValue === 1
                       ? { marginLeft: 2, color: "#b100e8" }
                       : { marginLeft: 2, color: "#495057" }
                   }
@@ -378,13 +372,13 @@ class shop extends Component {
               aria-label="add store"
               style={{ borderRadius: 0 }}
               value="3"
-              variant={this.state.shopValue == 3 ? "text" : undefined}
+              variant={this.state.shopValue === 3 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <StorefrontIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 3
+                  this.state.shopValue === 3
                     ? { marginLeft: 2, color: "#b100e8" }
                     : { marginLeft: 2, color: "#495057" }
                 }
@@ -394,13 +388,13 @@ class shop extends Component {
               aria-label="add type"
               style={{ borderRadius: 0 }}
               value="4"
-              variant={this.state.shopValue == 4 ? "text" : undefined}
+              variant={this.state.shopValue === 4 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <PeopleAltOutlinedIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 4
+                  this.state.shopValue === 4
                     ? { marginLeft: 2, color: "#b100e8" }
                     : { marginLeft: 2, color: "#495057" }
                 }
@@ -412,13 +406,13 @@ class shop extends Component {
               aria-label="add item"
               style={{ borderRadius: 0 }}
               value="5"
-              variant={this.state.shopValue == 5 ? "text" : undefined}
+              variant={this.state.shopValue === 5 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <ReceiptOutlinedIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 5
+                  this.state.shopValue === 5
                     ? { marginLeft: 2, color: "#b100e8" }
                     : { marginLeft: 2, color: "#495057" }
                 }
@@ -429,13 +423,13 @@ class shop extends Component {
               aria-label="add item"
               style={{ borderRadius: 0 }}
               value="6"
-              variant={this.state.shopValue == 6 ? "text" : undefined}
+              variant={this.state.shopValue === 6 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <TimelineIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 6
+                  this.state.shopValue === 6
                     ? { marginLeft: 2, color: "#b100e8" }
                     : { marginLeft: 2, color: "#495057" }
                 }
@@ -445,13 +439,13 @@ class shop extends Component {
               aria-label="add item"
               style={{ borderRadius: 0 }}
               value="7"
-              variant={this.state.shopValue == 7 ? "text" : undefined}
+              variant={this.state.shopValue === 7 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <SpeedIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 7
+                  this.state.shopValue === 7
                     ? { marginLeft: 2, color: "#b100e8" }
                     : { marginLeft: 2, color: "#495057" }
                 }
@@ -462,13 +456,13 @@ class shop extends Component {
               aria-label="add item"
               style={{ borderRadius: 0 }}
               value="8"
-              variant={this.state.shopValue == 8 ? "text" : undefined}
+              variant={this.state.shopValue === 8 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <LocalOfferOutlinedIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 8
+                  this.state.shopValue === 8
                     ? { marginLeft: 2, color: "#b100e8" }
                     : { marginLeft: 2, color: "#495057" }
                 }
@@ -479,13 +473,13 @@ class shop extends Component {
               aria-label="add type"
               style={{ borderRadius: 0 }}
               value="2"
-              variant={this.state.shopValue == 2 ? "text" : undefined}
+              variant={this.state.shopValue === 2 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <ColorLensIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 2
+                  this.state.shopValue === 2
                     ? { marginLeft: 2, color: "#b100e8" }
                     : { marginLeft: 2, color: "#495057" }
                 }
@@ -495,13 +489,13 @@ class shop extends Component {
               aria-label="admin"
               style={{ borderRadius: 0 }}
               value="1"
-              variant={this.state.shopValue == 1 ? "text" : undefined}
+              variant={this.state.shopValue === 1 ? "text" : undefined}
               onClick={this.handleClickShop}
             >
               <SettingsIcon
                 fontSize="medium"
                 style={
-                  this.state.shopValue == 1
+                  this.state.shopValue === 1
                     ? { marginLeft: 2, color: "#b100e8" }
                     : { marginLeft: 2, color: "#495057" }
                 }
@@ -512,15 +506,15 @@ class shop extends Component {
 
         <Grid item sm xs={12} style={{ padding: "0px 20px 20px 20px" }}>
           <Grid item xs={12}>
-            {this.state.shopValue == 1 ? <h1>value1</h1> : <p></p>}
-            {this.state.shopValue == 2 ? <h1>value2</h1> : <p></p>}
-            {this.state.shopValue == 3 ? <Products /> : <p></p>}
-            {this.state.shopValue == 4 ? <Customers /> : <p></p>}
+            {this.state.shopValue === 1 ? <h1>value1</h1> : <p></p>}
+            {this.state.shopValue === 2 ? <h1>value2</h1> : <p></p>}
+            {this.state.shopValue === 3 ? <Products /> : <p></p>}
+            {this.state.shopValue === 4 ? <Customers /> : <p></p>}
 
-            {this.state.shopValue == 5 ? <CommandTab /> : <p></p>}
-            {this.state.shopValue == 6 ? <h1>analytics</h1> : <p></p>}
-            {this.state.shopValue == 7 ? <h1>marketing</h1> : <p></p>}
-            {this.state.shopValue == 8 ? <DiscountTab /> : <p></p>}
+            {this.state.shopValue === 5 ? <CommandTab /> : <p></p>}
+            {this.state.shopValue === 6 ? <h1>analytics</h1> : <p></p>}
+            {this.state.shopValue === 7 ? <h1>marketing</h1> : <p></p>}
+            {this.state.shopValue === 8 ? <DiscountTab /> : <p></p>}
           </Grid>
         </Grid>
       </Grid>
@@ -531,9 +525,7 @@ class shop extends Component {
 const mapActionToProps = {
   logout,
 };
-const mapStateToProps = (state) => ({
-  admin: state.user.website[1],
-});
+const mapStateToProps = (state) => ({});
 
 export default connect(
   mapStateToProps,

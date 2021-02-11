@@ -16,17 +16,13 @@ const styles = (theme) => ({
   ...theme.spreadThis,
 });
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-});
-
 const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getWebsiteData());
     window.scrollTo(0, 0);
-  }, []);
+  }, [dispatch]);
   return (
     <Grid container>
       <Grid container>
